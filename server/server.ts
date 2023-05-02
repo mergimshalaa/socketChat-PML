@@ -1,6 +1,7 @@
 import { Server } from 'socket.io';
+import type { ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData } from './apitypes';
 
-const io = new Server();
+const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>();
 
 io.on('connection', (socket) => {
     console.log('user connected')
