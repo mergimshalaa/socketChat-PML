@@ -1,5 +1,29 @@
-import React, { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
+
+const Home = () => {
+  const [username, setUsername] = useState("");
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value);
+  };
+  const handleButtonClick = () => {
+    // handle button click, for example navigate to chatrooms page
+  };
+
+  return (
+    <HomeContainer>
+      <Input
+        type="text"
+        placeholder="Enter your username..."
+        value={username}
+        onChange={handleInputChange}
+      />
+      <Button onClick={handleButtonClick}>Enter Chatrooms</Button>
+    </HomeContainer>
+  );
+};
+
 
 const HomeContainer = styled.div`
   display: flex;
@@ -29,29 +53,5 @@ const Button = styled.button`
   color: white;
   cursor: pointer;
 `;
-
-const Home = () => {
-  const [username, setUsername] = useState("");
-
-  const handleInputChange = (event) => {
-    setUsername(event.target.value);
-  };
-
-  const handleButtonClick = () => {
-    // handle button click, for example navigate to chatrooms page
-  };
-
-  return (
-    <HomeContainer>
-      <Input
-        type="text"
-        placeholder="Enter your username..."
-        value={username}
-        onChange={handleInputChange}
-      />
-      <Button onClick={handleButtonClick}>Enter Chatrooms</Button>
-    </HomeContainer>
-  );
-};
 
 export default Home;
