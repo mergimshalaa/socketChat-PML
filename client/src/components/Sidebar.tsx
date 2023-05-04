@@ -120,7 +120,7 @@ export default function PersistentDrawerLeft() {
         <Divider />
         <List>
           {['Room1', 'Room2', 'Room3', 'Room4', 'Room5', 'Room6'].map((text) => (
-            <ListItem key={text} disablePadding>
+            <ListItem style={{color: 'white'}} key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                   {'#'}
