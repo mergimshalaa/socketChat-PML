@@ -4,7 +4,11 @@ import type { ClientToServerEvents, ServerToClientEvents, InterServerEvents, Soc
 const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>();
 
 io.on('connection', (socket) => {
-    console.log('user connected')
+    console.log(`User connected: ${socket.id}`)
+
+    socket.on('message', (message) => {
+        socket.broadcast.emit('message', message)
+    })
 })
 
 io.listen(3000);
