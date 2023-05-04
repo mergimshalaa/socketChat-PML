@@ -105,6 +105,7 @@ export default function PersistentDrawerLeft() {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            background: 'linear-gradient(to top, #142850, #4b86b4)'
           },
         }}
         variant="persistent"
