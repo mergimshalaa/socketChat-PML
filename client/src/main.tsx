@@ -5,13 +5,16 @@ import type { ClientToServerEvents, ServerToClientEvents } from '../../server/ap
 import App from './App.tsx';
 import { SocketProvider } from './context/SocketContext.tsx';
 import './index.css';
+import Background from './background/Background.tsx';
 
 export const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <SocketProvider>
-      <App />
+      <Background>
+        <App />
+      </Background>
     </SocketProvider>
   </React.StrictMode>,
 )
