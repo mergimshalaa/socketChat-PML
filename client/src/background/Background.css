@@ -40,44 +40,40 @@
 }
 
 .avatar-container {
-  position: relative;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .avatar1 {
-  background-image: url("https://i.pravatar.cc/150?img=1");
-  position: absolute;
-  width: 114.79px;
-  height: 114.79px;
-  left: 27.52px;
-  top: -43.01px;
-  transform: rotate(11.15deg);
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
+  background-image: url('https://via.placeholder.com/150x150');
+  background-size: cover;
+  margin-bottom: 20px;
 }
 
 .avatar2 {
-  background-image: url("https://i.pravatar.cc/150?img=2");
-  position: absolute;
-  width: 83.16px;
-  height: 83.16px;
-  left: -18px;
-  top: -8.45px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  transform: rotate(-20.08deg);
+  background-image: url('https://via.placeholder.com/150x150');
+  background-size: cover;
+  transform: rotate(-45deg);
+  margin-bottom: 20px;
 }
 
 .avatar3 {
-  background-image: url("https://i.pravatar.cc/150?img=3");
-  position: absolute;
-  left: 0%;
-  right: 0%;
-  top: 0.63%;
-  width: 83.16px;
-  height: 83.16px;
-  bottom: -0.63%;
-  border: 2.55421px solid rgba(30, 30, 30, 0.1);
-  border-radius: 255.421px;
-  transform: rotate(-0.36deg);
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
+  background-image: url('https://via.placeholder.com/150x150');
+  background-size: cover;
+  transform: rotate(45deg);
 }
 
 .ellipse-1{

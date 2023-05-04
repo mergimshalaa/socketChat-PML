@@ -14,6 +14,8 @@ function Background() {
         <div className="avatar avatar2"></div>
         <div className="avatar avatar3"></div>
       </div>
+      <div className="username-input">
+      </div>
       <div className="ellipses-container">
         <div className="ellipse ellipse-1"></div>
         <div className="ellipse ellipse-2"></div>
