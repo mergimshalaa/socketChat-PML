@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+
+.background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #ffd3f2, #b8d1ff);
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+.logo-container {
+  font-size: 48px;
+  font-weight: bold;
+  position: relative;
+}
+
+.logo-container h1 {
+  margin: 0;
+  font-family: "comic-sans";
+}
+
+.logo-container span {
+  font-size: 32px;
+  font-weight: normal;
+}
+
+.io {
+  font-size: 4em;
+  font-weight: bold;
+  font-family: "Indie Flower", cursive;
+  padding: 0.1em 0.4em;
+  border-radius: 0.4em;
+  background: linear-gradient(to right, #fd5d93, #c32f8f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.avatar-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.avatar1 {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-image: url('https://via.placeholder.com/150x150');
+  background-size: cover;
+  margin-bottom: 20px;
+}
+
+.avatar2 {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-image: url('https://via.placeholder.com/150x150');
+  background-size: cover;
+  transform: rotate(-45deg);
+  margin-bottom: 20px;
+}
+
+.avatar3 {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-image: url('https://via.placeholder.com/150x150');
+  background-size: cover;
+  transform: rotate(45deg);
+}
+
+.ellipse-1{
+  position: absolute;
+  width: 925.09px;
+  height: 1050.46px;
+  left: 8em;
+  top: 5em;
+  background: #7F9FFF;
+  border-radius: 50%;
+  opacity: 0.5;
+  filter: blur(125.278px);
+  transform: rotate(135deg);
+}
+
+.ellipse-2{
+  position: absolute;
+  width: 925.09px;
+  height: 1050.46px;
+  right: 8em;
+  top: 5em;
+  background: #7F9FFF;
+  border-radius: 50%;
+  opacity: 0.5;
+  filter: blur(125.278px);
+  transform: rotate(-135deg);
+}
