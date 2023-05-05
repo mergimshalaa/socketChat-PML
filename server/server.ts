@@ -1,14 +1,17 @@
 import { Server } from 'socket.io';
-import type { ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData } from './apitypes';
+import type { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketData } from './apitypes';
 
 const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>();
 
 io.on('connection', (socket) => {
     console.log(`User connected: ${socket.id}`)
 
-    socket.on('message', (message) => {
-        socket.broadcast.emit('message', message)
-    })
+    socket.on('join', (room, name, ack) => {
+        socket.data.name = name;
+        socket.join(room);
+        console.log(socket.rooms);
+        ack();
+    });
 })
 
 io.listen(3000);
