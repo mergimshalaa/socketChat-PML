@@ -1,22 +1,26 @@
-import { PropsWithChildren, createContext, useState, useContext, useEffect} from "react";
+import { PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
 import { Socket, io } from "socket.io-client";
-import type {
-  ClientToServerEvents,
-  ServerToClientEvents,
-} from "../../../server/apitypes.ts";
 
 interface ContextValues {
   socket: Socket;
-  joinLobby: () => void;
+  room?: string;
+  joinRoom: (room: string, name: string) => void; 
 }
 
+const socket = io();
 const SocketContext = createContext<ContextValues>(null as any);
 export const useSocket = () => useContext(SocketContext);
 
 export function SocketProvider({ children }: PropsWithChildren) {
-  const [socket] = useState<Socket<ServerToClientEvents, ClientToServerEvents>>(
-    io()
-  );
+  // const [socket] = useState<Socket<ServerToClientEvents, ClientToServerEvents>>(
+  //   io()
+  // );
+  const [room, setRoom] = useState<string>();
+  const joinRoom = (room: string, name: string) => {
+    socket.emit('join', room, name, () => {
+        setRoom(room);
+    })
+  }
 
   useEffect(() => {
     function connect() {
@@ -28,7 +32,7 @@ export function SocketProvider({ children }: PropsWithChildren) {
     function message(message:string) {
         console.log(message)  
     }
-
+    
     // socket.on("user_list", (rooms) => {
     //   setRooms(rooms)
     // })  
@@ -41,14 +45,10 @@ export function SocketProvider({ children }: PropsWithChildren) {
         socket.off('disconnect', disconnect)
         socket.off('message', message)
     }
-  }, [socket]);
-
-  const joinLobby = () => {
-    socket.emit("userJoinRoom", "lobby")
-  }
+  },[]);
 
   return (
-    <SocketContext.Provider value={{ socket, joinLobby }}>
+    <SocketContext.Provider value={{ socket, room, joinRoom }}>
       {children}
     </SocketContext.Provider>
   );
