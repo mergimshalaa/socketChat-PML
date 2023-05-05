@@ -26,7 +26,7 @@ function JoinRoom() {
         value={room}
         onChange={(e) => setRoom(e.target.value)}
       />
-
+        <button type='submit'>Join</button>
     </form>
   )
 }
