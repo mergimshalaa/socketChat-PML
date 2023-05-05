@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './Home';
 // import Sidebar from './components/Sidebar'
 
@@ -8,8 +8,10 @@ function App() {
      <>
         {/* <Sidebar /> */}
     <Router>
+      <Routes>
         <Route path="/" element={<Home/>} />
         {/* add more routes here */}
+      </Routes>  
     </Router>
     </>
   );

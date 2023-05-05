@@ -10,11 +10,11 @@ import Background from './background/Background.tsx';
 export const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <SocketProvider>
       <Background>
         <App />
       </Background>
     </SocketProvider>
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )

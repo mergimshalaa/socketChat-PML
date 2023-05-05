@@ -7,6 +7,7 @@ import type {
 
 interface ContextValues {
   socket: Socket;
+  joinLobby: () => void;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -27,6 +28,11 @@ export function SocketProvider({ children }: PropsWithChildren) {
     function message(message:string) {
         console.log(message)  
     }
+
+    // socket.on("user_list", (rooms) => {
+    //   setRooms(rooms)
+    // })  
+
     socket.on('connect', connect);
     socket.on('disconnect', disconnect);
     socket.on('message', message)
@@ -37,8 +43,12 @@ export function SocketProvider({ children }: PropsWithChildren) {
     }
   }, [socket]);
 
+  const joinLobby = () => {
+    socket.emit("userJoinRoom", "lobby")
+  }
+
   return (
-    <SocketContext.Provider value={{ socket }}>
+    <SocketContext.Provider value={{ socket, joinLobby }}>
       {children}
     </SocketContext.Provider>
   );

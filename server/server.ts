@@ -3,7 +3,14 @@ import type { ClientToServerEvents, InterServerEvents, ServerToClientEvents, Soc
 
 const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>();
 
+const rooms: string[] = []
+
 io.on('connection', (socket) => {
+    console.log('user connected')
+    socket.on("userJoinRoom", (lobby) => {
+        socket.join(lobby)
+        rooms.push(lobby)
+        //socket.emit("user_list", rooms)
     console.log(`User connected: ${socket.id}`)
 
     socket.on('join', (room, name, ack) => {

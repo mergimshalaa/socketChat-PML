@@ -1,5 +1,30 @@
+import { ChangeEvent, useState } from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import { useSocket } from "./context/SocketContext";
+
+const Home = () => {
+  const [username, setUsername] = useState("");
+
+  const {joinLobby} = useSocket();
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value);
+  };
+
+  return (
+    <HomeContainer>
+      <Input
+        type="text"
+        placeholder="Enter your username..."
+        value={username}
+        onChange={handleInputChange}
+      />
+      <Button onClick={joinLobby}>Enter Chatrooms</Button>
+    </HomeContainer>
+  );
+};
+
 
 const HomeContainer = styled.div`
   display: flex;
@@ -18,6 +43,7 @@ const Input = styled.input`
   margin-bottom: 16px;
   width: 80%;
   max-width: 400px;
+  z-index: 100;
 `;
 
 const Button = styled.button`
@@ -28,6 +54,7 @@ const Button = styled.button`
   background-color: #7f9fff;
   color: white;
   cursor: pointer;
+  z-index: 100;
 `;
 
 const Home = () => {

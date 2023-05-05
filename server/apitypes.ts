@@ -6,6 +6,7 @@
     message: (message: string) => void;
     join: (room: string) => void;
     leave: (room: string) => void;
+    userJoinRoom: (lobby: string) => void;
   }
   
   export interface InterServerEvents {
