@@ -3,23 +3,34 @@ import type { ClientToServerEvents, InterServerEvents, ServerToClientEvents, Soc
 
 const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>();
 
-const rooms: string[] = []
-
 io.on('connection', (socket) => {
-    console.log('user connected')
-    socket.on("userJoinRoom", (lobby) => {
-        socket.join(lobby)
-        rooms.push(lobby)
-        //socket.emit("user_list", rooms)
     console.log(`User connected: ${socket.id}`)
 
-    socket.on('join', (room, name, ack) => {
+    socket.on('message', (room: string, message: string) => {
+        io.to(room).emit('message', socket.data.name!, message);
+        console.log(room, socket.data.name, message)
+    })
+
+    socket.on('join', (room: string, name: string, ack) => {
         socket.data.name = name;
         socket.join(room);
-        console.log(socket.rooms);
         ack();
+        io.emit('rooms', getRooms()) 
     });
+
+    socket.emit('rooms', getRooms())
 })
+
+function getRooms() {
+    const { rooms } = io.sockets.adapter;
+    const roomList: string[] = [];
+    for (const [name, setOfSocketids] of rooms) {
+        if (!setOfSocketids.has(name)) {
+            roomList.push(name);
+        }
+    }
+    return roomList
+}
 
 io.listen(3000);
 console.log('Listening on port 3000');
