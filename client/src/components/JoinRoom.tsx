@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 function JoinRoom() {
   const [name, setName] = useState('');
+  const [room, setRoom] = useState('');
 
   const joinRoom = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,6 +23,8 @@ function JoinRoom() {
         name='Room'
         placeholder='Room'
         type='text'
+        value={room}
+        onChange={(e) => setRoom(e.target.value)}
       />
 
     </form>
