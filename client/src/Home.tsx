@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSocket } from "./context/SocketContext";
 
 const Home = () => {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState('');
   const [room, setRoom] = useState('');
   const { joinRoom } = useSocket();
 
