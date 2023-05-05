@@ -1,18 +1,12 @@
-
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './Home';
-// import Sidebar from './components/Sidebar'
+import { ChatRoom } from './components/ChatRoom';
+import { useSocket } from './context/SocketContext';
 
 function App() {
+  const { room } = useSocket()
   return (
      <>
-        {/* <Sidebar /> */}
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home/>} />
-        {/* add more routes here */}
-      </Routes>  
-    </Router>
+      { room ? <ChatRoom /> : <Home /> }
     </>
   );
 }

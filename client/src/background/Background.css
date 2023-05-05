@@ -87,6 +87,7 @@
   opacity: 0.5;
   filter: blur(125.278px);
   transform: rotate(135deg);
+  z-index: -99999;
 }
 
 .ellipse-2{
@@ -100,4 +101,5 @@
   opacity: 0.5;
   filter: blur(125.278px);
   transform: rotate(-135deg);
+  z-index: -99999;
 }
