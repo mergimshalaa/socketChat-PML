@@ -32,25 +32,36 @@ const Button = styled.button`
 
 const Home = () => {
   const [username, setUsername] = useState("");
+  const [room, setRoom] = useState('');
 
-  const handleInputChange = (event) => {
-    setUsername(event.target.value);
-  };
 
-  const handleButtonClick = () => {
-    // handle button click, for example navigate to chatrooms page
+  const joinRoom = (e: React.FormEvent<HTMLFormElement>) => {
+    //Handle the onSubmit for joinRoom.
+    e.preventDefault();
+
   };
 
   return (
-    <HomeContainer>
+    <form onSubmit={joinRoom}>
       <Input
-        type="text"
-        placeholder="Enter your username..."
+        name='Name'
+        placeholder='Type your username...'
+        type='text'
         value={username}
-        onChange={handleInputChange}
+        onChange={(e) => setUsername(e.target.value)}
+        // Sets username to the value inside the input
       />
-      <Button onClick={handleButtonClick}>Enter Chatrooms</Button>
-    </HomeContainer>
+
+      <Input
+        name='Room'
+        placeholder='Room'
+        type='text'
+        value={room}
+        onChange={(e) => setRoom(e.target.value)}
+        //Takes a value to name the room the user wants to join
+      />
+        <Button type='submit'>Join</Button>
+    </form>
   );
 };
 
