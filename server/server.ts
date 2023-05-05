@@ -11,6 +11,10 @@ io.on('connection', (socket) => {
         socket.join(lobby)
         rooms.push(lobby)
         //socket.emit("user_list", rooms)
+    console.log(`User connected: ${socket.id}`)
+
+    socket.on('message', (message) => {
+        socket.broadcast.emit('message', message)
     })
 })
 
