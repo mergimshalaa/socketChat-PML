@@ -17,7 +17,7 @@ export function SocketProvider({ children }: PropsWithChildren) {
   const [messages, setMessages] = useState<Message[]>([])
   const [room, setRoom] = useState<string>();
   
-  const joinRoom = (name: string, room: string ) => {
+  const joinRoom = ( room: string, name: string ) => {
     socket.emit('join', room, name, () => {
       setRoom(room);
     })
