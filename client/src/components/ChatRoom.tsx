@@ -1,9 +1,18 @@
 import styled from "styled-components";
 import { MessageInput } from "../components/MessageInput";
 import { useSocket } from "../context/SocketContext";
+import { useEffect } from "react";
+import { socket } from "../main";
 
 export function ChatRoom() {
   const { room, messages } = useSocket();
+
+  useEffect(() => {
+    socket.on("message", (message) => {
+      // Update the chat message history in real-time
+      updateMessageHistory(room, message);
+    });
+  }, [room, updateMessageHistory]);
 
   return (
     <>
