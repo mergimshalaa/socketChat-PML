@@ -1,12 +1,18 @@
-import Home from './Home';
-import { ChatRoom } from './components/ChatRoom';
-import { useSocket } from './context/SocketContext';
+import { Route, Routes } from "react-router-dom";
+import Home from "./Home";
+import { ChatRoom } from "./components/ChatRoom";
+import { RoomList } from "./components/RoomList";
 
 function App() {
-  const { room } = useSocket()
   return (
-     <>
-      { room ? <ChatRoom /> : <Home /> }
+    <>
+      <RoomList />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/chat" element={<ChatRoom />} />
+
+        {/* {room ? <ChatRoom /> : <Home />} */}
+      </Routes>
     </>
   );
 }
