@@ -1,16 +1,19 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useSocket } from "./context/SocketContext";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [username, setUsername] = useState('');
   const [room, setRoom] = useState('');
   const { joinRoom } = useSocket();
+  
+  const navigate = useNavigate();
 
   const handleJoinRoom = (e: React.FormEvent<HTMLFormElement>) => {
-    //Handle the onSubmit for joinRoom.
     e.preventDefault();
     joinRoom(room, username);
+    navigate('/chat')
   };
 
   return (
