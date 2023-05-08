@@ -11,17 +11,17 @@ Para ihop er i grupp om tre - ni väljer själva vem ni jobbar med.
 Läs noga igenom hela uppgiftsbeskrivningen tillsammans innan ni börjar.
  
  **Krav för godkänt:**
-- [ ] Användaren får börja med att välja ett eget visningsnamn när den besöker sidan.
-- [ ] Det ska gå att skapa ett rum (och samtidigt gå med i rummet).
+- [x] Användaren får börja med att välja ett eget visningsnamn när den besöker sidan.
+- [x] Det ska gå att skapa ett rum (och samtidigt gå med i rummet).
 - [ ] Det ska gå att lämna ett rum (tomma rum ska automatiskt försvinna).
-- [ ] Samtliga rum skall vara synligt i en lista.
+- [x] Samtliga rum skall vara synligt i en lista.
 - [ ] De går att gå med i ett rum genom att klicka på det i listan.
 - [ ] När en användare går med i ett nytt rum ska befintligt rum lämnas automatiskt.
-- [ ] Användare ska kunna skicka och läsa nya meddelanden i rummet de har gått med i
+- [x] Användare ska kunna skicka och läsa nya meddelanden i rummet de har gått med i
 - [ ] När en användare håller på att skriva ett meddelande skall det synas för alla andra i
 rummet.
-- [ ] Git & GitHub har använts.
-- [ ] Projektmappen innehåller en README.md fil (läs ovan för mer info).
+- [x] Git & GitHub har använts.
+- [x] Projektmappen innehåller en README.md fil (läs ovan för mer info).
 - [ ] Uppgiften lämnas in i tid!
 
 **Krav för väl godkänt:**
