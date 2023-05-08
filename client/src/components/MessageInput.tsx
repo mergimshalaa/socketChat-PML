@@ -1,49 +1,57 @@
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useSocket } from "../context/SocketContext";
 
-export function MessageInput() {
+type Props = {
+  onSend: (message: string) => void;
+};
+
+export const MessageInput: React.FC<Props> = ({ onSend }) => {
   const [message, setMessage] = useState("");
-  const { sendMessage } = useSocket();
 
-  const handleSubmit = (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    sendMessage(message);
+    if (!message) return;
+    onSend(message);
     setMessage("");
   };
-  return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          name="name"
-          placeholder="Message..."
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <Button type="submit">
-          <FontAwesomeIcon icon={faPaperPlane} />
-        </Button>
-      </form>
-    </>
-  );
-}
 
-const Input = styled.input`
-  padding: 0.5rem 1rem;
-  border-radius: 0.3rem;
-  border: none;
-  margin: 0.5rem;
-  `;
-  
-  const Button = styled.button`
-  border: none;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <MessageInputWrapper>
+        <MessageInputField
+          type="text"
+          placeholder="Type a message"
+          value={message}
+          onChange={handleChange}
+        />
+        <MessageSendButton type="submit">Send</MessageSendButton>
+      </MessageInputWrapper>
+    </form>
+  );
+};
+
+const MessageInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const MessageInputField = styled.input`
+  flex-grow: 1;
   padding: 0.5rem;
-  border-radius: 0.3rem;
-  background-color: #2192FF;
-  color: #FFF;
+  border-radius: 0.5rem;
+  border: none;
+  margin-right: 0.5rem;
+`;
+
+const MessageSendButton = styled.button`
+  background-color: white;
+  color: black;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 `;

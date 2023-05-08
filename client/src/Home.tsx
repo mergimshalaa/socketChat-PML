@@ -4,69 +4,51 @@ import { useSocket } from "./context/SocketContext";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [username, setUsername] = useState('');
-  const [room, setRoom] = useState('');
-  const [message, setMessage] = useState('');
-  const { joinRoom, sendMessage } = useSocket();
+  const [username, setUsername] = useState("");
+  const [room, setRoom] = useState("");
+  const { joinRoom } = useSocket();
   const navigate = useNavigate();
 
   useEffect(() => {
     // Kolla om användaren redan är inloggad
     // Om så är fallet, navigera direkt till chatten
-    const loggedInUser = localStorage.getItem('username');
-    const loggedInRoom = localStorage.getItem('room');
+    const loggedInUser = localStorage.getItem("username");
+    const loggedInRoom = localStorage.getItem("room");
     if (loggedInUser && loggedInRoom) {
       setRoom(loggedInRoom);
       setUsername(loggedInUser);
       joinRoom(loggedInRoom, loggedInUser);
-      navigate('/chat');
+      navigate("/chat");
     }
   }, []);
 
   const handleJoinRoom = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     joinRoom(room, username);
-    localStorage.setItem('username', username);
-    localStorage.setItem('room', room);
-  };
-
-  const handleSendMessage = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    sendMessage(message);
-    setMessage('');
+    localStorage.setItem("username", username);
+    localStorage.setItem("room", room);
+    navigate("/chat");
   };
 
   return (
     <HomeContainer onSubmit={handleJoinRoom}>
       <Input
-        name='Name'
-        placeholder='Type your username...'
-        type='text'
+        name="Name"
+        placeholder="Type your username..."
+        type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
 
       <Input
-        name='Room'
-        placeholder='Room'
-        type='text'
+        name="Room"
+        placeholder="Room"
+        type="text"
         value={room}
         onChange={(e) => setRoom(e.target.value)}
       />
 
-      <Button type='submit'>Join</Button>
-      
-      <form onSubmit={handleSendMessage}>
-        <Input
-          name='Message'
-          placeholder='Type your message...'
-          type='text'
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-
-        <Button type='submit'>Send</Button>
-      </form>
+      <Button type="submit">Join</Button>
     </HomeContainer>
   );
 };
