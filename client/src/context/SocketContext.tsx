@@ -18,8 +18,8 @@ export function SocketProvider({ children }: PropsWithChildren) {
   const [room, setRoom] = useState<string>('');
   
   
-  const joinRoom = ( room: string, name: string ) => {
-    socket.emit('join', room, name, () => {
+  const joinRoom = ( room: string, name: string, optionalArg: string = '') => {
+    socket.emit('join', room, name, optionalArg, () => {
       setRoom(room);
       console.log(`User ${name} joined room: ${room}`)
     })

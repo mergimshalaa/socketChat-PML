@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSocket } from "./context/SocketContext";
 import { useNavigate } from "react-router-dom";
@@ -6,14 +6,34 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const [username, setUsername] = useState('');
   const [room, setRoom] = useState('');
-  const { joinRoom } = useSocket();
-  
+  const [message, setMessage] = useState('');
+  const { joinRoom, sendMessage } = useSocket();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Kolla om användaren redan är inloggad
+    // Om så är fallet, navigera direkt till chatten
+    const loggedInUser = localStorage.getItem('username');
+    const loggedInRoom = localStorage.getItem('room');
+    if (loggedInUser && loggedInRoom) {
+      setRoom(loggedInRoom);
+      setUsername(loggedInUser);
+      joinRoom(loggedInRoom, loggedInUser);
+      navigate('/chat');
+    }
+  }, []);
 
   const handleJoinRoom = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     joinRoom(room, username);
-    navigate('/chat')
+    localStorage.setItem('username', username);
+    localStorage.setItem('room', room);
+  };
+
+  const handleSendMessage = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    sendMessage(message);
+    setMessage('');
   };
 
   return (
@@ -24,7 +44,6 @@ const Home = () => {
         type='text'
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        // Sets username to the value inside the input
       />
 
       <Input
@@ -33,9 +52,21 @@ const Home = () => {
         type='text'
         value={room}
         onChange={(e) => setRoom(e.target.value)}
-        //Takes a value to name the room the user wants to join
       />
-        <Button type='submit'>Join</Button>
+
+      <Button type='submit'>Join</Button>
+      
+      <form onSubmit={handleSendMessage}>
+        <Input
+          name='Message'
+          placeholder='Type your message...'
+          type='text'
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+
+        <Button type='submit'>Send</Button>
+      </form>
     </HomeContainer>
   );
 };
