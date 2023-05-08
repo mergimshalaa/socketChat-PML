@@ -3,14 +3,21 @@ import { MessageInput } from "../components/MessageInput";
 import { useSocket } from "../context/SocketContext";
 
 export function ChatRoom() {
-  const { room, messages } = useSocket();
+  const { room, messages, leaveRoom } = useSocket();
+
+  const handleLeaveRoom = (room: string) => {
+    leaveRoom(room)
+  };
 
   return (
     <>
       <header>
         <h1>You are in room: {room}</h1>
+        <LeaveButton onClick={handleLeaveRoom}>
+          Leave room
+        </LeaveButton>
       </header>
-      <main>
+      <StyledMain>
         <ul>
           {messages.map((message, i) => (
             <MessageWrapper key={i}>
@@ -21,14 +28,20 @@ export function ChatRoom() {
         </ul>
 
         <MessageInput />
-      </main>
+      </StyledMain>
     </>
   );
 }
 
-const MessageWrapper = styled.div`
-
+const LeaveButton = styled.button`
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #f45;
+  color: #fff;
 `;
+
+const MessageWrapper = styled.div``;
 
 const SenderName = styled.div`
   padding: 0.5rem;
@@ -36,7 +49,11 @@ const SenderName = styled.div`
 
 const Message = styled.div`
   display: inline-block;
-  background-color: white;
+  background-color: lightgreen;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
+`;
+
+const StyledMain = styled.main`
+  background-color: #fff;
 `;
