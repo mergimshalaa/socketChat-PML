@@ -11,6 +11,7 @@ import { Message } from "../../../server/apitypes";
 interface ContextValues {
   room?: string;
   joinRoom: (room: string, name: string) => void;
+  leaveRoom: (room: string) => void;
   sendMessage: (message: string) => void;
   messages: Message[];
   roomList: string[];
@@ -35,6 +36,14 @@ export function SocketProvider({
       console.log(`User ${name} joined room: ${room}`);
     });
   };
+
+  const leaveRoom = (room: string) => {
+    socket.emit('leave', room, () => {
+      if (room.length > 0) {
+        return
+      }
+    })
+  }
 
   const sendMessage = (message: string) => {
     if (!room)
@@ -80,6 +89,7 @@ export function SocketProvider({
       value={{
         room,
         joinRoom,
+        leaveRoom,
         sendMessage,
         messages,
         roomList,
