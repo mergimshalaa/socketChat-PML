@@ -1,8 +1,13 @@
+import { useSocket } from "../context/SocketContext";
 
 export function RoomList() {
-    return (
-        <>
-            
-        </>
-    )
+  const { roomList } = useSocket();
+
+  return (
+    <>
+      {roomList.map((roomName) => (
+        <div>{roomName}</div>
+      ))}
+    </>
+  );
 }
