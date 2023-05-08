@@ -6,7 +6,7 @@ export function ChatRoom() {
   const { room, messages, leaveRoom } = useSocket();
 
   const handleLeaveRoom = (room: string) => {
-    leaveRoom(room)
+    leaveRoom(room);
   };
 
   return (
@@ -14,9 +14,7 @@ export function ChatRoom() {
       <StyledHeader>
         <HeaderWrapper>
           <h1>You are in room: {room}</h1>
-          <LeaveButton onClick={handleLeaveRoom}>
-            Leave room
-          </LeaveButton>
+          <LeaveButton onClick={handleLeaveRoom}>Leave room</LeaveButton>
         </HeaderWrapper>
       </StyledHeader>
       <StyledMain>
