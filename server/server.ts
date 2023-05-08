@@ -9,9 +9,9 @@ io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`)
 
   socket.on('message', (room: string, message: string) => {
-    const name = socket.data.name!;
+    const username = socket.data.name!;
     const timestamp = Date.now();
-    const data = { name, message, timestamp };
+    const data = { username, message, timestamp };
     const filepath = path.join(__dirname, 'messages', `${room}.json`);
     try {
       const messages = fs.existsSync(filepath)
@@ -19,8 +19,8 @@ io.on('connection', (socket) => {
         : [];
       messages.push(data);
       fs.writeFileSync(filepath, JSON.stringify(messages));
-      io.to(room).emit('message', data, message);
-
+      io.to(room).emit('message', username, message);
+      // Vill byta ut Username, message emot "data", renare kod. Sparar allt som ett objekt.
     } catch (error) {
       console.error(`Error while writing to file: ${error}`);
     }

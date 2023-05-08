@@ -24,7 +24,6 @@ export function ChatRoom() {
     setMessages((prevMessages) => [...prevMessages, message]);
   }
 
-
   const MessagesList = styled.ul`
   list-style-type: none;
   padding: 0;
