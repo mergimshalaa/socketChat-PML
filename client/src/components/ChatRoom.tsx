@@ -11,12 +11,14 @@ export function ChatRoom() {
 
   return (
     <>
-      <header>
-        <h1>You are in room: {room}</h1>
-        <LeaveButton onClick={handleLeaveRoom}>
-          Leave room
-        </LeaveButton>
-      </header>
+      <StyledHeader>
+        <HeaderWrapper>
+          <h1>You are in room: {room}</h1>
+          <LeaveButton onClick={handleLeaveRoom}>
+            Leave room
+          </LeaveButton>
+        </HeaderWrapper>
+      </StyledHeader>
       <StyledMain>
         <ul>
           {messages.map((message, i) => (
@@ -33,14 +35,6 @@ export function ChatRoom() {
   );
 }
 
-const LeaveButton = styled.button`
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  border: none;
-  background-color: #f45;
-  color: #fff;
-`;
-
 const MessageWrapper = styled.div``;
 
 const SenderName = styled.div`
@@ -56,4 +50,23 @@ const Message = styled.div`
 
 const StyledMain = styled.main`
   background-color: #fff;
+  margin-left: 20%;
+`;
+
+const StyledHeader = styled.header`
+  margin-left: 20%;
+`;
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const LeaveButton = styled.button`
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #f45;
+  color: #fff;
 `;
