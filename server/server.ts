@@ -20,13 +20,18 @@ io.on("connection", (socket) => {
     io.to(room).emit("message", socket.data.name!, message);
     console.log(room, socket.data.name, message);
   });
-
+  
   socket.on("join", (room: string, name: string, ack) => {
     socket.data.name = name;
     socket.join(room);
     ack();
     io.emit("rooms", getRooms());
   });
+  
+  socket.on('leave', (room: string) => {
+    socket.leave(room)
+    io.to(room).emit("message", socket.data.name!, 'left the room');
+  })
 
   socket.emit("rooms", getRooms());
 });
