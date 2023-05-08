@@ -51,6 +51,7 @@ const Message = styled.div`
 const StyledMain = styled.main`
   background-color: #fff;
   margin-left: 20%;
+  height: 100%;
 `;
 
 const StyledHeader = styled.header`
