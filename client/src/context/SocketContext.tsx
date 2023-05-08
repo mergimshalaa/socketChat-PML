@@ -6,7 +6,7 @@ interface ContextValues {
   room?: string;
   joinRoom: (room: string, name: string) => void;
   sendMessage: (message: string) => void;
-  messages: Message[]
+  messages: Message[];
 }
 
 const socket = io();
@@ -56,6 +56,7 @@ export function SocketProvider({ children }: PropsWithChildren) {
       socket.off('rooms', rooms)
     }
   },[]);
+
 
   return (
     <SocketContext.Provider value={{ room, joinRoom, sendMessage, messages }}>

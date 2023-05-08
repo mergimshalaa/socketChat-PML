@@ -1,51 +1,50 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Message } from "../components/Message";
 import { MessageInput } from "../components/MessageInput";
 import { useSocket } from "../context/SocketContext";
-import { useEffect } from "react";
-import { socket } from "../main";
 
 export function ChatRoom() {
-  const { room, messages } = useSocket();
+  const { room } = useSocket();
+  const [messages, setMessages] = useState<string[]>([]);
+  const username = localStorage.getItem("username") as string;
 
+  // Fetch messages from JSON file when component mounts
   useEffect(() => {
-    socket.on("message", (message) => {
-      // Update the chat message history in real-time
-      updateMessageHistory(room, message);
-    });
-  }, [room, updateMessageHistory]);
+    async function fetchMessages() {
+      const response = await fetch(`${room}.json`);
+      const data = await response.json();
+      setMessages(data.messages);
+    }
+    fetchMessages();
+  }, [room]);
+
+  // Update messages state when a new message is sent
+  function handleMessage(message: string) {
+    setMessages((prevMessages) => [...prevMessages, message]);
+  }
+
+
+  const MessagesList = styled.ul`
+  list-style-type: none;
+  padding: 0;
+`;
+
 
   return (
     <>
-      <header>
-        <h1>You are in room: {room}</h1>
-      </header>
-      <main>
-        <ul>
-          {messages.map((message, i) => (
-            <MessageWrapper key={i}>
-              <SenderName>{message.name} said:</SenderName>
-              <Message> {message.message}</Message>
-            </MessageWrapper>
-          ))}
-        </ul>
+    <header>
+      <h1>You are in room: {room}</h1>
+    </header>
+    <main>
+      <MessagesList>
+        {messages.map((message, i) => (
+          <Message key={i} message={message} username={username} />
+        ))}
+      </MessagesList>
 
-        <MessageInput />
-      </main>
-    </>
-  );
+      <MessageInput onSend={handleMessage} />
+    </main>
+  </>
+);
 }
-
-const MessageWrapper = styled.div`
-
-`;
-
-const SenderName = styled.div`
-  padding: 0.5rem;
-`;
-
-const Message = styled.div`
-  display: inline-block;
-  background-color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-`;

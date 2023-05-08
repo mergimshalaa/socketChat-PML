@@ -20,7 +20,7 @@ io.on('connection', (socket) => {
       messages.push(data);
       fs.writeFileSync(filepath, JSON.stringify(messages));
       io.to(room).emit('message', data, message);
-      console.log(room, name, message);
+
     } catch (error) {
       console.error(`Error while writing to file: ${error}`);
     }
