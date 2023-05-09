@@ -3,9 +3,11 @@ import { MessageInput } from "../components/MessageInput";
 import { useSocket } from "../context/SocketContext";
 
 export function ChatRoom() {
-  const { room, messages, leaveRoom } = useSocket();
+  const { room, messages, leaveRoom, usersTyping } = useSocket();
+  console.log(usersTyping)
 
-  const handleLeaveRoom = (room: string) => {
+  const handleLeaveRoom = () => {
+    if (!room) return;
     leaveRoom(room);
   };
 
@@ -27,6 +29,7 @@ export function ChatRoom() {
           ))}
         </ul>
 
+        {usersTyping.length > 0 && `${usersTyping} is typing...`}
         <MessageInput />
       </StyledMain>
     </>
@@ -68,4 +71,9 @@ const LeaveButton = styled.button`
   border: none;
   background-color: #f45;
   color: #fff;
+  &:hover {
+    background-color: #f13;
+    cursor: pointer;
+    transform: scale(1.05)
+  }
 `;
