@@ -4,17 +4,14 @@ import { useSocket } from "../context/SocketContext";
 import { useNavigate } from "react-router-dom";
 
 export function ChatRoom() {
-  const { room, messages, leaveRoom, usersTyping, setRoomList, roomList } = useSocket();
+  const { room, messages, leaveRoom, usersTyping } = useSocket();
   const navigate = useNavigate();
 
   const handleLeaveRoom = () => {
     if (!room) return;
     leaveRoom(room);
-    setRoomList(roomList)
     navigate('/')
   };
-
-  console.log(usersTyping)
 
   return (
     <>
