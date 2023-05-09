@@ -6,7 +6,7 @@ import { useSocket } from "../context/SocketContext";
 
 export function MessageInput() {
   const [message, setMessage] = useState("");
-  const { sendMessage, startType, stopType } = useSocket();
+  const { sendMessage, startType, stopType, room } = useSocket();
 
   const handleSubmit = (
     e: React.FormEvent<HTMLFormElement>
@@ -18,9 +18,9 @@ export function MessageInput() {
 
   const handleMessageChange = (e: any) => {
     if (e.target.value) {
-      startType()
+      startType(room || '')
     } else {
-      stopType()
+      stopType(room || '')
     }
     setMessage(e.target.value)
   }

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 export function ChatRoom() {
   const { room, messages, leaveRoom, usersTyping, setRoomList, roomList } = useSocket();
-  console.log(usersTyping)
   const navigate = useNavigate();
 
   const handleLeaveRoom = () => {
@@ -14,6 +13,8 @@ export function ChatRoom() {
     setRoomList(roomList)
     navigate('/')
   };
+
+  console.log(usersTyping)
 
   return (
     <>
@@ -34,7 +35,7 @@ export function ChatRoom() {
           ))}
         </ul>
 
-        {usersTyping.length > 0 && `${usersTyping} is typing...`}
+        {usersTyping.length > 0 && `${usersTyping.join(' ')} are typing...`}
         <MessageInput />
       </StyledMain>
       </div>

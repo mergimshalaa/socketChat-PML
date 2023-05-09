@@ -18,7 +18,6 @@ io.on("connection", (socket) => {
 
   socket.on("message", (room: string, message: string) => {
     io.to(room).emit("message", socket.data.name!, message);
-    console.log(room, socket.data.name, message);
   });
   
   socket.on("join", (room: string, name: string, ack) => {
@@ -34,14 +33,13 @@ io.on("connection", (socket) => {
     ack();
   })
 
-  socket.on('startType', () => {
-    console.log(socket.data.name)
-    socket.broadcast.emit('startType', socket.data.name!)
+  socket.on('startType', (room: string) => {
+    console.log(room)
+    socket.broadcast.to(room).emit('startType', socket.data.name!)
   })
 
-  socket.on('stopType', () => {
-    console.log(socket.data.name)
-    socket.broadcast.emit('stopType', socket.data.name!)
+  socket.on('stopType', (room: string) => {
+    socket.broadcast.to(room).emit('stopType', socket.data.name!)
   })
   
   socket.emit("rooms", getRooms());
@@ -50,7 +48,6 @@ io.on("connection", (socket) => {
 function getRooms() {
   const { rooms } = io.sockets.adapter;
   const roomList: string[] = [];
-  console.log(rooms);
 
   for (const [name, setOfSocketids] of rooms) {
     if (!setOfSocketids.has(name)) {
