@@ -1,18 +1,23 @@
 import styled from "styled-components";
 import { MessageInput } from "../components/MessageInput";
 import { useSocket } from "../context/SocketContext";
+import { useNavigate } from "react-router-dom";
 
 export function ChatRoom() {
-  const { room, messages, leaveRoom, usersTyping } = useSocket();
+  const { room, messages, leaveRoom, usersTyping, setRoomList, roomList } = useSocket();
   console.log(usersTyping)
+  const navigate = useNavigate();
 
   const handleLeaveRoom = () => {
     if (!room) return;
     leaveRoom(room);
+    setRoomList(roomList)
+    navigate('/')
   };
 
   return (
     <>
+    <div style={{ display: 'flex', flexDirection: 'column', flex: '1'}}>
       <StyledHeader>
         <HeaderWrapper>
           <h1>You are in room: {room}</h1>
@@ -20,7 +25,7 @@ export function ChatRoom() {
         </HeaderWrapper>
       </StyledHeader>
       <StyledMain>
-        <ul>
+        <ul style={{ height: '35rem', overflow: 'scroll'}}>
           {messages.map((message, i) => (
             <MessageWrapper key={i}>
               <SenderName>{message.name} said:</SenderName>
@@ -32,6 +37,7 @@ export function ChatRoom() {
         {usersTyping.length > 0 && `${usersTyping} is typing...`}
         <MessageInput />
       </StyledMain>
+      </div>
     </>
   );
 }
@@ -51,12 +57,12 @@ const Message = styled.div`
 
 const StyledMain = styled.main`
   background-color: #fff;
-  margin-left: 20%;
+  margin-left: 5%;
   height: 100%;
 `;
 
 const StyledHeader = styled.header`
-  margin-left: 20%;
+  margin-left: 5%;
 `;
 
 const HeaderWrapper = styled.div`

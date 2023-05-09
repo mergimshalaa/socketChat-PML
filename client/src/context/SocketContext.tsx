@@ -21,7 +21,8 @@ interface ContextValues {
   roomList: string[];
   startType: () => void;
   stopType: () => void;
-  usersTyping: string[]
+  usersTyping: string[];
+  setRoomList: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 const socket: Socket<
@@ -133,6 +134,7 @@ export function SocketProvider({
         startType,
         stopType,
         usersTyping,
+        setRoomList,
       }}
     >
       {children}

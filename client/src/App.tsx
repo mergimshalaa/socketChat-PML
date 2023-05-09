@@ -6,13 +6,15 @@ import { RoomList } from "./components/RoomList";
 function App() {
   return (
     <>
-      <RoomList />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/chat" element={<ChatRoom />} />
+      <div style={{ display: "flex" }}>
+        <RoomList />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/chat" element={<ChatRoom />} />
 
-        {/* {room ? <ChatRoom /> : <Home />} */}
-      </Routes>
+          {/* {room ? <ChatRoom /> : <Home />} */}
+        </Routes>
+      </div>
     </>
   );
 }
