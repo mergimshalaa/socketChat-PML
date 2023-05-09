@@ -13,12 +13,12 @@ Läs noga igenom hela uppgiftsbeskrivningen tillsammans innan ni börjar.
  **Krav för godkänt:**
 - [x] Användaren får börja med att välja ett eget visningsnamn när den besöker sidan.
 - [x] Det ska gå att skapa ett rum (och samtidigt gå med i rummet).
-- [ ] Det ska gå att lämna ett rum (tomma rum ska automatiskt försvinna).
+- [x] Det ska gå att lämna ett rum (tomma rum ska automatiskt försvinna).
 - [x] Samtliga rum skall vara synligt i en lista.
-- [ ] De går att gå med i ett rum genom att klicka på det i listan.
-- [ ] När en användare går med i ett nytt rum ska befintligt rum lämnas automatiskt.
+- [x] De går att gå med i ett rum genom att klicka på det i listan.
+- [x] När en användare går med i ett nytt rum ska befintligt rum lämnas automatiskt.
 - [x] Användare ska kunna skicka och läsa nya meddelanden i rummet de har gått med i
-- [ ] När en användare håller på att skriva ett meddelande skall det synas för alla andra i
+- [x] När en användare håller på att skriva ett meddelande skall det synas för alla andra i
 rummet.
 - [x] Git & GitHub har använts.
 - [x] Projektmappen innehåller en README.md fil (läs ovan för mer info).
