@@ -28,11 +28,22 @@ io.on("connection", (socket) => {
     io.emit("rooms", getRooms());
   });
   
-  socket.on('leave', (room: string) => {
+  socket.on('leave', (room: string, ack: () => void) => {
     socket.leave(room)
     io.to(room).emit("message", socket.data.name!, 'left the room');
+    ack();
   })
 
+  socket.on('startType', () => {
+    console.log(socket.data.name)
+    socket.broadcast.emit('startType', socket.data.name!)
+  })
+
+  socket.on('stopType', () => {
+    console.log(socket.data.name)
+    socket.broadcast.emit('stopType', socket.data.name!)
+  })
+  
   socket.emit("rooms", getRooms());
 });
 
