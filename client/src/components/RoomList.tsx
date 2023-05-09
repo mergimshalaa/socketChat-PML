@@ -6,6 +6,7 @@ export function RoomList() {
 
   return (
     <>
+    <SidebarWrapper>
       <Wrapper>
         <RoomTitle>Active rooms:</RoomTitle>
         <RoomListDiv>
@@ -14,6 +15,7 @@ export function RoomList() {
           ))}
         </RoomListDiv>
       </Wrapper>
+      </SidebarWrapper>
     </>
   );
 }
@@ -37,4 +39,15 @@ const RoomListDiv = styled.div`
     border-bottom: 1px solid lightgray;
     padding: .2rem;
     margin: .5rem 0;
+`;
+
+const SidebarWrapper = styled.div`
+  height: 100vh;
+  width: 300px;
+  background-color: #f5f5f5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  padding: .3rem;
 `;

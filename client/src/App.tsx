@@ -6,12 +6,11 @@ import { RoomList } from "./components/RoomList";
 function App() {
   return (
     <>
-      <RoomList />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/chat" element={<ChatRoom />} />
+        <Route path="/chat" element={<><RoomList /><ChatRoom /></>} />
 
-        {/* {room ? <ChatRoom /> : <Home />} */}
+         {/* {room ? <ChatRoom /> : <Home />} */}
       </Routes>
     </>
   );
