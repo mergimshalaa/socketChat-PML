@@ -19,8 +19,8 @@ interface ContextValues {
   sendMessage: (message: string) => void;
   messages: Message[];
   roomList: string[];
-  startType: () => void;
-  stopType: () => void;
+  startType: (room: string) => void;
+  stopType: (room: string) => void;
   usersTyping: string[];
   setRoomList: React.Dispatch<React.SetStateAction<string[]>>;
   username: string;
@@ -75,15 +75,15 @@ export function SocketProvider({ children }: PropsWithChildren) {
     socket.emit("message", room, message);
   };
 
-  const startType = () => {
+  const startType = (room: string) => {
     if (!isTyping) {
-      socket.emit("startType");
+      socket.emit("startType", room);
       setIsTyping(true);
     }
   };
 
-  const stopType = () => {
-    socket.emit("stopType");
+  const stopType = (room: string) => {
+    socket.emit("stopType", room);
     setIsTyping(false);
   };
 
