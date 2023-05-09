@@ -51,10 +51,11 @@ export function SocketProvider({
       console.log(`User ${name} joined room: ${room}`);
     });
   };
-
+  
   const leaveRoom = (room: string) => {
     socket.emit("leave", room, () => {
       setRoom("");
+      console.log(`Left room: ${room}`);
     });
   };
 
