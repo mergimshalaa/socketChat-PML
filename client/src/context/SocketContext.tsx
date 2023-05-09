@@ -102,6 +102,7 @@ export function SocketProvider({
     }
 
     function onStopType(username: string) {
+      console.log(username)
       setUsersTyping(usersTyping.filter(username => username === username))
     }
 
