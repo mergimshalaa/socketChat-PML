@@ -5,8 +5,12 @@ import {
   useEffect,
   useState,
 } from "react";
-import { io } from "socket.io-client";
-import { Message } from "../../../server/apitypes";
+import { Socket, io } from "socket.io-client";
+import {
+  ClientToServerEvents,
+  Message,
+  ServerToClientEvents,
+} from "../../../server/apitypes";
 
 interface ContextValues {
   room?: string;
@@ -15,9 +19,15 @@ interface ContextValues {
   sendMessage: (message: string) => void;
   messages: Message[];
   roomList: string[];
+  startType: () => void;
+  stopType: () => void;
+  usersTyping: string[]
 }
 
-const socket = io();
+const socket: Socket<
+  ServerToClientEvents,
+  ClientToServerEvents
+> = io();
 const SocketContext = createContext<ContextValues>(
   null as any
 );
@@ -29,6 +39,10 @@ export function SocketProvider({
   const [messages, setMessages] = useState<Message[]>([]);
   const [room, setRoom] = useState<string>("");
   const [roomList, setRoomList] = useState<string[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [usersTyping, setUsersTyping] = useState<string[]>(
+    []
+  );
 
   const joinRoom = (room: string, name: string) => {
     socket.emit("join", room, name, () => {
@@ -38,12 +52,10 @@ export function SocketProvider({
   };
 
   const leaveRoom = (room: string) => {
-    socket.emit('leave', room, () => {
-      if (room.length > 0) {
-        return
-      }
-    })
-  }
+    socket.emit("leave", room, () => {
+      setRoom("");
+    });
+  };
 
   const sendMessage = (message: string) => {
     if (!room)
@@ -52,6 +64,18 @@ export function SocketProvider({
       );
     socket.emit("message", room, message);
   };
+
+  const startType = () => {
+    if (!isTyping) {
+      socket.emit("startType");
+      setIsTyping(true);
+    }
+  };
+  
+  const stopType = () => {
+    socket.emit("stopType");
+    setIsTyping(false);
+  }
 
   useEffect(() => {
     function connect() {
@@ -71,16 +95,29 @@ export function SocketProvider({
       setRoomList(rooms);
     }
 
+    function onStartType(username: string) {
+      console.log(username);
+      setUsersTyping([...usersTyping, username])
+    }
+
+    function onStopType(username: string) {
+      setUsersTyping(usersTyping.filter(username => username === username))
+    }
+
     socket.on("connect", connect);
     socket.on("disconnect", disconnect);
     socket.on("message", message);
     socket.on("rooms", rooms);
-
+    socket.on("startType", onStartType);
+    socket.on("stopType", onStopType);
+    
     return () => {
       socket.off("connect", connect);
       socket.off("disconnect", disconnect);
       socket.off("message", message);
       socket.off("rooms", rooms);
+      socket.off("startType", onStartType);
+      socket.off("stopType", onStopType);
     };
   }, []);
 
@@ -93,6 +130,9 @@ export function SocketProvider({
         sendMessage,
         messages,
         roomList,
+        startType,
+        stopType,
+        usersTyping,
       }}
     >
       {children}
