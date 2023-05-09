@@ -32,16 +32,15 @@ io.on("connection", (socket) => {
     socket.leave(room)
     io.to(room).emit("message", socket.data.name!, 'left the room');
     ack();
+    io.emit("rooms", getRooms());
   })
 
-  socket.on('startType', () => {
-    console.log(socket.data.name)
-    socket.broadcast.emit('startType', socket.data.name!)
+  socket.on('startType', (room: string) => {
+    socket.broadcast.to(room).emit('startType', socket.data.name!)
   })
 
-  socket.on('stopType', () => {
-    console.log(socket.data.name)
-    socket.broadcast.emit('stopType', socket.data.name!)
+  socket.on('stopType', (room: string) => {
+    socket.broadcast.to(room).emit('stopType', socket.data.name!)
   })
   
   socket.emit("rooms", getRooms());
