@@ -31,6 +31,7 @@ io.on("connection", (socket) => {
     socket.leave(room)
     io.to(room).emit("message", socket.data.name!, 'left the room');
     ack();
+    io.emit("rooms", getRooms());
   })
 
   socket.on('startType', (room: string) => {
@@ -47,13 +48,15 @@ io.on("connection", (socket) => {
 
 function getRooms() {
   const { rooms } = io.sockets.adapter;
+  console.log(rooms)
   const roomList: string[] = [];
-
+  
   for (const [name, setOfSocketids] of rooms) {
     if (!setOfSocketids.has(name)) {
       roomList.push(name);
     }
   }
+  console.log(roomList)
   return roomList;
 }
 
