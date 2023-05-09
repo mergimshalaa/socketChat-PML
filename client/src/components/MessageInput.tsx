@@ -19,7 +19,7 @@ export function MessageInput() {
   const handleMessageChange = (e: any) => {
     if (e.target.value) {
       startType(room || '')
-    } else {
+    } else if (e.target.value === ''){
       stopType(room || '')
     }
     setMessage(e.target.value)

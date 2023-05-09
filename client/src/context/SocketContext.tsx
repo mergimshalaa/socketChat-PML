@@ -96,11 +96,7 @@ export function SocketProvider({
     }
 
     function onStartType(username: string) {
-      debugger
-      const clone = structuredClone(usersTyping)
-      clone.push(username)
-      console.log(username)
-      setUsersTyping(clone)
+      setUsersTyping([...usersTyping, username])
     }
 
     function onStopType(username: string) {
