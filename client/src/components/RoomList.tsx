@@ -4,13 +4,17 @@ import { useSocket } from "../context/SocketContext";
 export function RoomList() {
   const { roomList } = useSocket();
 
+  const handleSwitchRoom = () => {
+    return
+  }
+
   return (
     <>
       <Wrapper>
         <RoomTitle>Active rooms:</RoomTitle>
         <RoomListDiv>
           {roomList.map((roomName) => (
-            <ListedRoom key={roomName}>
+            <ListedRoom key={roomName} onClick={handleSwitchRoom}>
               {roomName}
             </ListedRoom>
           ))}
@@ -31,14 +35,16 @@ const RoomTitle = styled.h3`
   margin-left: 1rem;
 `;
 
-const RoomListDiv = styled.div`
-  border-radius: 1rem;
-  background-color: #fff;
-  padding: 0.5rem 1rem;
-`;
+const RoomListDiv = styled.div``;
 
 const ListedRoom = styled.div`
   border-bottom: 1px solid lightgray;
-  padding: 0.2rem;
+  border-radius: 0.3rem;
+  background-color: #FFF;
+  padding: 0.5rem 1rem;
   margin: 0.5rem 0;
+  &:hover {
+    background-color: #AAA;
+    color: #FFF
+  }
 `;
