@@ -14,55 +14,64 @@ import {
 
 interface ContextValues {
   room?: string;
-  joinRoom: (room: string, name: string) => void;
-  leaveRoom: (room: string) => void;
+  joinRoom: (room: string) => void;
+  leaveRoom: () => void;
   sendMessage: (message: string) => void;
   messages: Message[];
   roomList: string[];
   startType: () => void;
   stopType: () => void;
   usersTyping: string[];
-  setRoomList: React.Dispatch<React.SetStateAction<string[]>>
+  setRoomList: React.Dispatch<React.SetStateAction<string[]>>;
+  username: string;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const socket: Socket<
-  ServerToClientEvents,
-  ClientToServerEvents
-> = io();
-const SocketContext = createContext<ContextValues>(
-  null as any
-);
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
+
+const SocketContext = createContext<ContextValues>({
+  joinRoom: () => {},
+  leaveRoom: () => {},
+  sendMessage: () => {},
+  messages: [],
+  roomList: [],
+  startType: () => {},
+  stopType: () => {},
+  usersTyping: [],
+  setRoomList: () => {},
+  username: "",
+  setUsername: () => {},
+});
+
 export const useSocket = () => useContext(SocketContext);
 
-export function SocketProvider({
-  children,
-}: PropsWithChildren) {
+export function SocketProvider({ children }: PropsWithChildren) {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [currentRoom, setCurrentRoom] = useState("");
   const [room, setRoom] = useState<string>("");
   const [roomList, setRoomList] = useState<string[]>([]);
   const [isTyping, setIsTyping] = useState(false);
-  const [usersTyping, setUsersTyping] = useState<string[]>(
-    []
-  );
+  const [usersTyping, setUsersTyping] = useState<string[]>([]);
+  const [username, setUsername] = useState("");
 
-  const joinRoom = (room: string, name: string) => {
-    socket.emit("join", room, name, () => {
+
+  const joinRoom = (room: string) => {
+    socket.emit("join", room, username, () => {
+      setCurrentRoom(room);
       setRoom(room);
-      console.log(`User ${name} joined room: ${room}`);
+      console.log(`User ${username} joined room: ${room}`);
     });
   };
 
-  const leaveRoom = (room: string) => {
-    socket.emit("leave", room, () => {
+  const leaveRoom = () => {
+    socket.emit("leave", currentRoom, () => {
+      setCurrentRoom("");
       setRoom("");
     });
   };
 
   const sendMessage = (message: string) => {
-    if (!room)
-      return console.log(
-        "Must enter a room to send message!"
-      );
+    if (!room) return console.log("Must enter a room to send message!");
     socket.emit("message", room, message);
   };
 
@@ -72,11 +81,11 @@ export function SocketProvider({
       setIsTyping(true);
     }
   };
-  
+
   const stopType = () => {
     socket.emit("stopType");
     setIsTyping(false);
-  }
+  };
 
   useEffect(() => {
     function connect() {
@@ -86,10 +95,7 @@ export function SocketProvider({
       console.log("disconnected from server");
     }
     function message(name: string, message: string) {
-      setMessages((messages) => [
-        ...messages,
-        { name, message },
-      ]);
+      setMessages((messages) => [...messages, { name, message }]);
     }
     function rooms(rooms: string[]) {
       console.log(rooms);
@@ -98,12 +104,12 @@ export function SocketProvider({
 
     function onStartType(username: string) {
       console.log(username);
-      setUsersTyping([...usersTyping, username])
+      setUsersTyping([...usersTyping, username]);
     }
 
     function onStopType(username: string) {
-      console.log(username)
-      setUsersTyping(usersTyping.filter(username => username === username))
+      console.log(username);
+      setUsersTyping(usersTyping.filter((username) => username === username));
     }
 
     socket.on("connect", connect);
@@ -112,7 +118,7 @@ export function SocketProvider({
     socket.on("rooms", rooms);
     socket.on("startType", onStartType);
     socket.on("stopType", onStopType);
-    
+
     return () => {
       socket.off("connect", connect);
       socket.off("disconnect", disconnect);
@@ -123,22 +129,22 @@ export function SocketProvider({
     };
   }, []);
 
+  const values: ContextValues = {
+    room,
+    joinRoom,
+    leaveRoom,
+    sendMessage,
+    messages,
+    roomList,
+    startType,
+    stopType,
+    usersTyping,
+    setRoomList,
+    username,
+    setUsername,
+  };
+
   return (
-    <SocketContext.Provider
-      value={{
-        room,
-        joinRoom,
-        leaveRoom,
-        sendMessage,
-        messages,
-        roomList,
-        startType,
-        stopType,
-        usersTyping,
-        setRoomList,
-      }}
-    >
-      {children}
-    </SocketContext.Provider>
+    <SocketContext.Provider value={values}>{children}</SocketContext.Provider>
   );
 }

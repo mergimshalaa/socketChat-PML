@@ -10,7 +10,7 @@ export function ChatRoom() {
 
   const handleLeaveRoom = () => {
     if (!room) return;
-    leaveRoom(room);
+    leaveRoom();
     setRoomList(roomList)
     navigate('/')
   };

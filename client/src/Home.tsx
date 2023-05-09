@@ -4,18 +4,20 @@ import styled from "styled-components";
 import { useSocket } from "./context/SocketContext";
 
 const Home = () => {
-  const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
   const { joinRoom } = useSocket();
+  const { setUsername } = useSocket();
 
   const navigate = useNavigate();
 
-  const handleJoinRoom = (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleJoinRoom = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    joinRoom(room, username);
+    joinRoom(room);
     navigate("/chat");
+  };
+
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
   };
 
   return (
@@ -24,9 +26,7 @@ const Home = () => {
         name="Name"
         placeholder="Type your username..."
         type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        // Sets username to the value inside the input
+        onChange={handleUsernameChange}
       />
 
       <Input
@@ -35,7 +35,6 @@ const Home = () => {
         type="text"
         value={room}
         onChange={(e) => setRoom(e.target.value)}
-        //Takes a value to name the room the user wants to join
       />
       <Button type="submit">Join</Button>
     </HomeContainer>

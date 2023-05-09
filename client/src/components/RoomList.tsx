@@ -2,21 +2,31 @@ import styled from "styled-components";
 import { useSocket } from "../context/SocketContext";
 
 export function RoomList() {
-  const { roomList } = useSocket();
+  const { roomList, leaveRoom, joinRoom } = useSocket();
+
+  function handleJoinRoom(roomName: string) {
+    leaveRoom();
+    joinRoom(roomName);
+  }
 
   return (
-    <>
-      <Wrapper>
-        <RoomTitle>Active rooms:</RoomTitle>
-        <RoomListDiv>
-          {roomList.map((roomName) => (
-            <ListedRoom key={roomName}>{roomName}</ListedRoom>
-          ))}
-        </RoomListDiv>
-      </Wrapper>
-    </>
+    <Wrapper>
+      <RoomTitle>Active rooms:</RoomTitle>
+      <RoomListDiv>
+        {roomList.map((roomName) => (
+          <ListedRoom
+            key={roomName}
+            id={roomName}
+            onClick={() => handleJoinRoom(roomName)}
+          >
+            {roomName}
+          </ListedRoom>
+        ))}
+      </RoomListDiv>
+    </Wrapper>
   );
 }
+
 
 const Wrapper = styled.div`
   width: 200px;
