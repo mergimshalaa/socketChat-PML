@@ -13,8 +13,8 @@ export interface ClientToServerEvents {
     ack: () => void
   ) => void;
   leave: (room: string, ack: () => void) => void;
-  startType: () => void;
-  stopType: () => void;
+  startType: (room: string) => void;
+  stopType: (room: string) => void;
 }
 
 export interface InterServerEvents {
