@@ -6,7 +6,7 @@ import { useSocket } from "../context/SocketContext";
 
 export function MessageInput() {
   const [message, setMessage] = useState("");
-  const { sendMessage } = useSocket();
+  const { sendMessage, startType, stopType } = useSocket();
 
   const handleSubmit = (
     e: React.FormEvent<HTMLFormElement>
@@ -15,6 +15,15 @@ export function MessageInput() {
     sendMessage(message);
     setMessage("");
   };
+
+  const handleMessageChange = (e: any) => {
+    if (e.target.value) {
+      startType()
+    } else {
+      stopType()
+    }
+    setMessage(e.target.value)
+  }
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -23,7 +32,7 @@ export function MessageInput() {
           name="name"
           placeholder="Message..."
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={handleMessageChange}
         />
         <Button type="submit">
           <FontAwesomeIcon icon={faPaperPlane} />
