@@ -85,7 +85,7 @@ const ToggleButton = styled.button`
   right: .8rem;
   background-color: transparent;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   cursor: pointer;
   &:focus {
     outline: none;
