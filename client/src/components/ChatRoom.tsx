@@ -106,6 +106,8 @@ const LeaveButton = styled.button`
 
 const Header = styled.h1`
   color: #000;
+  font-size: 1.5rem;
+  font-weight: bold;
   margin: 0.5rem 0;
   text-align: center;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2),
