@@ -77,6 +77,10 @@ display: inline-block;
 background-color: lightgreen;
 padding: 0.5rem 1rem;
 border-radius: 0.5rem;
+box-shadow: 
+    -8px -8px 16px rgba(255, 255, 255, 0.75), 
+    8px 8px 16px rgba(0, 0, 0, 0.15);
+  margin-right: 1rem;
 `;
 
 const StyledMain = styled.main`
