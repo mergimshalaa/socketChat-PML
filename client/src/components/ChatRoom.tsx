@@ -6,7 +6,16 @@ import { useSocket } from "../context/SocketContext";
 export function ChatRoom() {
   const { room, messages, leaveRoom, usersTyping, setRoomList, roomList } =
     useSocket();
-  console.log(usersTyping);
+        
+  const {
+    room,
+    messages,
+    leaveRoom,
+    usersTyping,
+    setRoomList,
+    roomList,
+  } = useSocket();
+
   const navigate = useNavigate();
 
   const handleLeaveRoom = () => {

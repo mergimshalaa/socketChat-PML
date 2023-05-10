@@ -18,7 +18,6 @@ io.on("connection", (socket) => {
 
   socket.on("message", (room: string, message: string) => {
     io.to(room).emit("message", socket.data.name!, message);
-    console.log(room, socket.data.name, message);
   });
   
   socket.on("join", (room: string, name: string, ack) => {
@@ -49,7 +48,6 @@ io.on("connection", (socket) => {
 function getRooms() {
   const { rooms } = io.sockets.adapter;
   const roomList: string[] = [];
-  console.log(rooms);
 
   for (const [name, setOfSocketids] of rooms) {
     if (!setOfSocketids.has(name)) {
