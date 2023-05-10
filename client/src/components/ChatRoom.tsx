@@ -63,28 +63,35 @@ export function ChatRoom() {
 }
 
 const MessageWrapper = styled.div`
-  margin 0 1rem;
+  margin: 0 1rem;
 `;
 
 const SenderName = styled.div`
+  font-weight: bold;
   padding: 0.5rem;
+  margin-bottom: 0.5rem;
 `;
 
 const Message = styled.div`
-  display: inline-block;
-  background-color: lightgreen;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+display: inline-block;
+background-color: lightgreen;
+padding: 0.5rem 1rem;
+border-radius: 0.5rem;
 `;
 
 const StyledMain = styled.main`
   background-color: #fff;
   margin-left: 5%;
   height: 100%;
+  border-radius: 10px;
+  box-shadow: 
+    -8px -8px 16px rgba(255, 255, 255, 0.75), 
+    8px 8px 16px rgba(0, 0, 0, 0.15);
 `;
 
 const StyledHeader = styled.header`
   margin-left: 5%;
+  margin-bottom: 1rem;
 `;
 
 const HeaderWrapper = styled.div`
@@ -99,6 +106,9 @@ const LeaveButton = styled.button`
   border: none;
   background-color: #f45;
   color: #fff;
+  box-shadow: 
+    -4px -4px 8px rgba(255, 255, 255, 0.75), 
+    4px 4px 8px rgba(0, 0, 0, 0.15);
   &:hover {
     background-color: #f13;
     cursor: pointer;
