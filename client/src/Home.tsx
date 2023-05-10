@@ -10,13 +10,17 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  const handleJoinRoom = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleJoinRoom = (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
     joinRoom(room);
     navigate("/chat");
   };
 
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUsernameChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setUsername(e.target.value);
   };
 

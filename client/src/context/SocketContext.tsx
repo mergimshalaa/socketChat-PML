@@ -22,12 +22,17 @@ interface ContextValues {
   startType: (room: string) => void;
   stopType: (room: string) => void;
   usersTyping: string[];
-  setRoomList: React.Dispatch<React.SetStateAction<string[]>>;
+  setRoomList: React.Dispatch<
+    React.SetStateAction<string[]>
+  >;
   username: string;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
+const socket: Socket<
+  ServerToClientEvents,
+  ClientToServerEvents
+> = io();
 
 const SocketContext = createContext<ContextValues>({
   joinRoom: () => {},
@@ -45,15 +50,18 @@ const SocketContext = createContext<ContextValues>({
 
 export const useSocket = () => useContext(SocketContext);
 
-export function SocketProvider({ children }: PropsWithChildren) {
+export function SocketProvider({
+  children,
+}: PropsWithChildren) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentRoom, setCurrentRoom] = useState("");
   const [room, setRoom] = useState<string>("");
   const [roomList, setRoomList] = useState<string[]>([]);
   const [isTyping, setIsTyping] = useState(false);
-  const [usersTyping, setUsersTyping] = useState<string[]>([]);
+  const [usersTyping, setUsersTyping] = useState<string[]>(
+    []
+  );
   const [username, setUsername] = useState("");
-
 
   const joinRoom = (room: string) => {
     socket.emit("join", room, username, () => {
@@ -71,7 +79,10 @@ export function SocketProvider({ children }: PropsWithChildren) {
   };
 
   const sendMessage = (message: string) => {
-    if (!room) return console.log("Must enter a room to send message!");
+    if (!room)
+      return console.log(
+        "Must enter a room to send message!"
+      );
     socket.emit("message", room, message);
   };
 
@@ -95,7 +106,10 @@ export function SocketProvider({ children }: PropsWithChildren) {
       console.log("disconnected from server");
     }
     function message(name: string, message: string) {
-      setMessages((messages) => [...messages, { name, message }]);
+      setMessages((messages) => [
+        ...messages,
+        { name, message },
+      ]);
     }
     function rooms(rooms: string[]) {
       console.log(rooms);
@@ -109,7 +123,11 @@ export function SocketProvider({ children }: PropsWithChildren) {
 
     function onStopType(username: string) {
       console.log(username);
-      setUsersTyping(usersTyping.filter((username) => username === username));
+      setUsersTyping(
+        usersTyping.filter(
+          (username) => username === username
+        )
+      );
     }
 
     socket.on("connect", connect);
@@ -145,6 +163,8 @@ export function SocketProvider({ children }: PropsWithChildren) {
   };
 
   return (
-    <SocketContext.Provider value={values}>{children}</SocketContext.Provider>
+    <SocketContext.Provider value={values}>
+      {children}
+    </SocketContext.Provider>
   );
 }

@@ -15,7 +15,6 @@ export function RoomList() {
       <RoomListDiv>
         {roomList.map((roomName) => (
           <ListedRoom
-            style={{ cursor: 'pointer' }}
             key={roomName}
             id={roomName}
             onClick={() => handleJoinRoom(roomName)}
@@ -28,26 +27,28 @@ export function RoomList() {
   );
 }
 
-
 const Wrapper = styled.div`
   width: 200px;
   display: inline-block;
   background-color: #f5f5f5;
-  padding: .3rem;
+  padding: 0.3rem;
 `;
 
 const RoomTitle = styled.h3`
-    margin-left: 1rem;
+  margin-left: 1rem;
 `;
 
-const RoomListDiv = styled.div`
-    border-radius: 1rem;
-    background-color: #FFF;
-    padding: .5rem 1rem;;
-    `;
-    
-    const ListedRoom = styled.div`
-    border-bottom: 1px solid lightgray;
-    padding: .2rem;
-    margin: .5rem 0;
+const RoomListDiv = styled.div``;
+
+const ListedRoom = styled.div`
+  border-radius: 0.5rem;
+  background-color: #fff;
+  border-bottom: 2px solid lightgray;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  cursor: pointer;
+  &:hover {
+    background-color: #aaa;
+    color: #fff;
+  }
 `;

@@ -6,7 +6,8 @@ import { useSocket } from "../context/SocketContext";
 
 export function MessageInput() {
   const [message, setMessage] = useState("");
-  const { sendMessage, startType, stopType, room } = useSocket();
+  const { sendMessage, startType, stopType, room } =
+    useSocket();
 
   const handleSubmit = (
     e: React.FormEvent<HTMLFormElement>
@@ -18,12 +19,12 @@ export function MessageInput() {
 
   const handleMessageChange = (e: any) => {
     if (e.target.value) {
-      startType(room || '')
-    } else if (e.target.value === ''){
-      stopType(room || '')
+      startType(room || "");
+    } else if (e.target.value === "") {
+      stopType(room || "");
     }
-    setMessage(e.target.value)
-  }
+    setMessage(e.target.value);
+  };
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -47,12 +48,12 @@ const Input = styled.input`
   border-radius: 0.3rem;
   border: none;
   margin: 0.5rem;
-  `;
-  
-  const Button = styled.button`
+`;
+
+const Button = styled.button`
   border: none;
   padding: 0.5rem;
   border-radius: 0.3rem;
-  background-color: #2192FF;
-  color: #FFF;
+  background-color: #2192ff;
+  color: #fff;
 `;

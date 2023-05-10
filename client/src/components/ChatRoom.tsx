@@ -1,42 +1,62 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { MessageInput } from "../components/MessageInput";
 import { useSocket } from "../context/SocketContext";
-import { useNavigate } from "react-router-dom";
 
 export function ChatRoom() {
-  const { room, messages, leaveRoom, usersTyping, setRoomList, roomList } = useSocket();
-  console.log(usersTyping)
+  const {
+    room,
+    messages,
+    leaveRoom,
+    usersTyping,
+    setRoomList,
+    roomList,
+  } = useSocket();
+  console.log(usersTyping);
   const navigate = useNavigate();
 
   const handleLeaveRoom = () => {
     if (!room) return;
     leaveRoom();
-    setRoomList(roomList)
-    navigate('/')
+    setRoomList(roomList);
+    navigate("/");
   };
 
   return (
     <>
-    <div style={{ display: 'flex', flexDirection: 'column', flex: '1'}}>
-      <StyledHeader>
-        <HeaderWrapper>
-          <h1>You are in room: {room}</h1>
-          <LeaveButton onClick={handleLeaveRoom}>Leave room</LeaveButton>
-        </HeaderWrapper>
-      </StyledHeader>
-      <StyledMain>
-        <ul style={{ height: '35rem', overflow: 'scroll'}}>
-          {messages.map((message, i) => (
-            <MessageWrapper key={i}>
-              <SenderName>{message.name} said:</SenderName>
-              <Message> {message.message}</Message>
-            </MessageWrapper>
-          ))}
-        </ul>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          flex: "1",
+        }}
+      >
+        <StyledHeader>
+          <HeaderWrapper>
+            <h1>You are in room: {room}</h1>
+            <LeaveButton onClick={handleLeaveRoom}>
+              Leave room
+            </LeaveButton>
+          </HeaderWrapper>
+        </StyledHeader>
+        <StyledMain>
+          <ul
+            style={{ height: "35rem", overflow: "scroll" }}
+          >
+            {messages.map((message, i) => (
+              <MessageWrapper key={i}>
+                <SenderName>
+                  {message.name} said:
+                </SenderName>
+                <Message> {message.message}</Message>
+              </MessageWrapper>
+            ))}
+          </ul>
 
-        {usersTyping.length > 0 && `${usersTyping} is typing...`}
-        <MessageInput />
-      </StyledMain>
+          {usersTyping.length > 0 &&
+            `${usersTyping} is typing...`}
+          <MessageInput />
+        </StyledMain>
       </div>
     </>
   );
@@ -80,6 +100,6 @@ const LeaveButton = styled.button`
   &:hover {
     background-color: #f13;
     cursor: pointer;
-    transform: scale(1.05)
+    transform: scale(1.05);
   }
 `;
