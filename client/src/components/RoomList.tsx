@@ -32,6 +32,7 @@ const Wrapper = styled.div`
   display: inline-block;
   background-color: #f5f5f5;
   padding: 0.3rem;
+  border-radius: 1rem;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2),
     -4px -4px 8px rgba(255, 255, 255, 0.2);
 `;
