@@ -4,9 +4,6 @@ import { MessageInput } from "../components/MessageInput";
 import { useSocket } from "../context/SocketContext";
 
 export function ChatRoom() {
-  const { room, messages, leaveRoom, usersTyping, setRoomList, roomList } =
-    useSocket();
-        
   const {
     room,
     messages,
