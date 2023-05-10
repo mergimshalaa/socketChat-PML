@@ -57,7 +57,7 @@ const HomeContainer = styled.form`
 `;
 
 const Input = styled.input`
-  padding: 12px 16px;
+  padding: 15px 5px 10px 20px;
   font-size: 16px;
   border-radius: 8px;
   border: none;
@@ -66,6 +66,10 @@ const Input = styled.input`
   width: 80%;
   max-width: 400px;
   z-index: 100;
+  background: none;
+  color: #555;
+  box-shadow: inset 8px 8px 8px #cbced1,
+              inset -8px -8px 8px #ffffff;
 `;
 
 const Button = styled.button`
