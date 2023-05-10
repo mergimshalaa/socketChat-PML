@@ -72,6 +72,7 @@ const ListedRoom = styled.div`
   padding: 0.5rem 1rem;
   margin: 0.5rem 0;
   cursor: pointer;
+  width: 8rem;
   &:hover {
     background-color: #aaa;
     color: #fff;
@@ -85,6 +86,7 @@ const ToggleButton = styled.button`
   background-color: transparent;
   border: none;
   font-size: 1.5rem;
+  cursor: pointer;
   &:focus {
     outline: none;
   }
