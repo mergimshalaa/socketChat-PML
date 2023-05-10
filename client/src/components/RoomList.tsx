@@ -55,7 +55,7 @@ const Wrapper = styled.div<{ isSidebarOpen: boolean }>`
 `;
 
 const RoomTitle = styled.h3`
-  margin-left: 1rem;
+  margin-left: .6rem;
   color: #333;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2),
     -2px -2px 4px rgba(255, 255, 255, 0.2);
@@ -70,7 +70,7 @@ const ListedRoom = styled.div`
   background-color: #fff;
   border-bottom: 2px solid lightgray;
   padding: 0.5rem 1rem;
-  margin: 0.5rem 0;
+  margin-left: .5rem;
   cursor: pointer;
   width: 8rem;
   &:hover {
