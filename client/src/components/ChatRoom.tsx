@@ -4,14 +4,8 @@ import { MessageInput } from "../components/MessageInput";
 import { useSocket } from "../context/SocketContext";
 
 export function ChatRoom() {
-  const {
-    room,
-    messages,
-    leaveRoom,
-    usersTyping,
-    setRoomList,
-    roomList,
-  } = useSocket();
+  const { room, messages, leaveRoom, usersTyping, setRoomList, roomList } =
+    useSocket();
   console.log(usersTyping);
   const navigate = useNavigate();
 
@@ -34,27 +28,20 @@ export function ChatRoom() {
         <StyledHeader>
           <HeaderWrapper>
             <h1>You are in room: {room}</h1>
-            <LeaveButton onClick={handleLeaveRoom}>
-              Leave room
-            </LeaveButton>
+            <LeaveButton onClick={handleLeaveRoom}>Leave room</LeaveButton>
           </HeaderWrapper>
         </StyledHeader>
         <StyledMain>
-          <ul
-            style={{ height: "25rem", overflow: "scroll" }}
-          >
+          <ul style={{ height: "25rem", overflow: "scroll" }}>
             {messages.map((message, i) => (
               <MessageWrapper key={i}>
-                <SenderName>
-                  {message.name} said:
-                </SenderName>
+                <SenderName>{message.name} said:</SenderName>
                 <Message> {message.message}</Message>
               </MessageWrapper>
             ))}
           </ul>
 
-          {usersTyping.length > 0 &&
-            `${usersTyping} is typing...`}
+          {usersTyping.length > 0 && `${usersTyping} is typing...`}
           <MessageInput />
         </StyledMain>
       </div>
@@ -73,12 +60,11 @@ const SenderName = styled.div`
 `;
 
 const Message = styled.div`
-display: inline-block;
-background-color: lightgreen;
-padding: 0.5rem 1rem;
-border-radius: 0.5rem;
-box-shadow: 
-    -8px -8px 16px rgba(255, 255, 255, 0.75), 
+  display: inline-block;
+  background-color: lightgreen;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: -8px -8px 16px rgba(255, 255, 255, 0.75),
     8px 8px 16px rgba(0, 0, 0, 0.15);
   margin-right: 1rem;
 `;
@@ -88,8 +74,7 @@ const StyledMain = styled.main`
   margin-left: 5%;
   height: 100%;
   border-radius: 10px;
-  box-shadow: 
-    -8px -8px 16px rgba(255, 255, 255, 0.75), 
+  box-shadow: -8px -8px 16px rgba(255, 255, 255, 0.75),
     8px 8px 16px rgba(0, 0, 0, 0.15);
 `;
 
@@ -110,8 +95,7 @@ const LeaveButton = styled.button`
   border: none;
   background-color: #f45;
   color: #fff;
-  box-shadow: 
-    -4px -4px 8px rgba(255, 255, 255, 0.75), 
+  box-shadow: -4px -4px 8px rgba(255, 255, 255, 0.75),
     4px 4px 8px rgba(0, 0, 0, 0.15);
   &:hover {
     background-color: #f13;
