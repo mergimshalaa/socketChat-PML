@@ -12,7 +12,6 @@ export function ChatRoom() {
     setRoomList,
     roomList,
   } = useSocket();
-  console.log(usersTyping);
   const navigate = useNavigate();
 
   const handleLeaveRoom = () => {

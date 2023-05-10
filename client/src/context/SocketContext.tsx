@@ -112,17 +112,14 @@ export function SocketProvider({
       ]);
     }
     function rooms(rooms: string[]) {
-      console.log(rooms);
       setRoomList(rooms);
     }
 
     function onStartType(username: string) {
-      console.log(username);
       setUsersTyping([...usersTyping, username]);
     }
 
     function onStopType(username: string) {
-      console.log(username);
       setUsersTyping(
         usersTyping.filter(
           (username) => username === username
