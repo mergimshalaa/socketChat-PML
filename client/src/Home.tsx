@@ -70,6 +70,8 @@ const Input = styled.input`
   color: #555;
   box-shadow: inset 8px 8px 8px #cbced1,
               inset -8px -8px 8px #ffffff;
+  border: none;
+  outline: none;
 `;
 
 const Button = styled.button`
