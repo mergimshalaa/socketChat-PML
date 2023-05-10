@@ -6,17 +6,14 @@ import { useSocket } from "../context/SocketContext";
 
 export function MessageInput() {
   const [message, setMessage] = useState("");
-  const { sendMessage, startType, stopType, room } =
-    useSocket();
+  const { sendMessage, startType, stopType, room } = useSocket();
 
-  const handleSubmit = (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (message.trim()) {
       sendMessage(message);
       setMessage("");
-      stopType(room || '')
+      stopType(room || "");
     }
   };
 
