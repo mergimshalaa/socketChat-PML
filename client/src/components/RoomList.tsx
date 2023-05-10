@@ -15,6 +15,7 @@ export function RoomList() {
       <RoomListDiv>
         {roomList.map((roomName) => (
           <ListedRoom
+            style={{ cursor: 'pointer' }}
             key={roomName}
             id={roomName}
             onClick={() => handleJoinRoom(roomName)}
