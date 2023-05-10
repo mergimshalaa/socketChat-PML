@@ -9,6 +9,7 @@ import App from "./App.tsx";
 import Background from "./background/Background.tsx";
 import { SocketProvider } from "./context/SocketContext.tsx";
 import "./index.css";
+import { ConnectedUsersProvider } from "./context/UserContext.tsx";
 
 export const socket: Socket<
   ServerToClientEvents,
@@ -21,9 +22,11 @@ ReactDOM.createRoot(
   // <React.StrictMode>
   <BrowserRouter>
     <SocketProvider>
-      <Background>
-        <App />
-      </Background>
+      <ConnectedUsersProvider>
+        <Background>
+          <App />
+        </Background>
+      </ConnectedUsersProvider>
     </SocketProvider>
   </BrowserRouter>
   // </React.StrictMode>,

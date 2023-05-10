@@ -1,55 +1,60 @@
 import styled from "styled-components";
-import { useSocket } from "../context/SocketContext";
-import { useEffect } from "react";
+import { SocketProvider, useSocket } from "../context/SocketContext";
+import { ConnectedUsersProvider, ConnectedUsersContext } from "../context/UserContext";
+import { useContext } from "react";
 
 export function RoomList() {
-  const { Otherusers, leaveRoom, joinRoom } = useSocket();
+  const { leaveRoom, joinRoom } = useSocket();
+  const connectedUsersContext = useContext<ConnectedUsersContext>(ConnectedUsersContext);
+  const { connectedUsers } = connectedUsersContext;
 
   function handleJoinDirectMessages(roomName: string) {
     leaveRoom();
     joinRoom(roomName);
   }
 
- 
+  type User = {
+    id: string;
+    name: string;
+  };
 
   return (
     <Wrapper>
-      <RoomTitle>Active rooms:</RoomTitle>
-      <RoomListDiv>
-        {Otherusers.map((username) => (
-          <ListedRoom
-            key={username}
-            id={username}
-            onClick={() => handleJoinDirectMessages(username)}
-          >
-            {username}
-          </ListedRoom>
+      <RoomTitle>Active users:</RoomTitle>
+      <UserList>
+        <UserListTitle>Connected users:</UserListTitle>
+        {connectedUsers.map((user: User) => (
+          <ListedUser onClick={() => handleJoinDirectMessages(user.name)} key={user.id}>
+            {user.name}
+          </ListedUser>
         ))}
-      </RoomListDiv>
+      </UserList>
     </Wrapper>
   );
 }
-
 
 const Wrapper = styled.div`
   width: 200px;
   display: inline-block;
   background-color: #f5f5f5;
-  padding: .3rem;
+  padding: 0.3rem;
 `;
 
 const RoomTitle = styled.h3`
-    margin-left: 1rem;
+  margin-left: 1rem;
 `;
 
-const RoomListDiv = styled.div`
-    border-radius: 1rem;
-    background-color: #FFF;
-    padding: .5rem 1rem;;
-    `;
-    
-    const ListedRoom = styled.div`
-    border-bottom: 1px solid lightgray;
-    padding: .2rem;
-    margin: .5rem 0;
+const UserList = styled.div`
+  margin-top: 1rem;
 `;
+
+const UserListTitle = styled.h3`
+  margin-left: 1rem;
+`;
+
+const ListedUser = styled.div`
+  padding: 0.2rem;
+  margin: 0.5rem 0;
+`;
+
+
