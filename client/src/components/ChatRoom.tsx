@@ -41,7 +41,7 @@ export function ChatRoom() {
         </StyledHeader>
         <StyledMain>
           <ul
-            style={{ height: "35rem", overflow: "scroll" }}
+            style={{ height: "25rem", overflow: "scroll" }}
           >
             {messages.map((message, i) => (
               <MessageWrapper key={i}>
