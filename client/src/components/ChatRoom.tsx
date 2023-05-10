@@ -62,7 +62,9 @@ export function ChatRoom() {
   );
 }
 
-const MessageWrapper = styled.div``;
+const MessageWrapper = styled.div`
+  margin 0 1rem;
+`;
 
 const SenderName = styled.div`
   padding: 0.5rem;
