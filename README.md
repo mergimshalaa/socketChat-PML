@@ -1,15 +1,22 @@
-# socketChat-PML
+# SocketChat-PML
 
-## Lab 3 - Socket Chatt
-I den här inlämningen skall ni skapa en chatt-baserad app som låter användare chatta med varandra i realtid. Kommunikationen skall sättas upp och göras med socket.io. En användare skall kunna skapa ett nytt rum. Skapade rum skall visas i en lista som användare kan klicka på för att gå med i önskat rum. Väl inne i ett rum ska det vara möjligt att chatta med varandra.
-Ni väljer själva om ni vill använda en utökad utvecklings-stack i projektet, notera att detta inte är ett krav. Exempel på ramverk ni kan lägga till i er stack är: Typescript, React, mm. Låt kreativiteten flöda!
-För att bli godkänd på den här uppgiften MÅSTE ni använda GIT och GitHub. Inlämningen sker som vanligt via läroplattformen där lämnar in er projektmapp som en zip-fil. I projektmappen ska det finnas (utöver all kod) en README.md fil som innehåller en titel, beskrivning av uppgiften och vad som krävs för att bygga och starta projektet. Notera att om instruktioner för hur projektet byggs och startas inte finns eller om instruktionerna är felaktiga kommer uppgiften bli underkänd.
+## Beskrivning 
+En chatt-baserad app som låter användare chatta med varandra i realtid. Chatten är byggd med React, TypeScript, styled-components, Socket.io och Vite.
 
-Utöver koden ska en muntligt presentation skall genomföras per grupp där ni demar applikationen ni har skapat. Ni ska även ta upp reflektioner om projektet.
-Para ihop er i grupp om tre - ni väljer själva vem ni jobbar med.
+## Installation & Starta projektet
+För att komma igång:
 
-Läs noga igenom hela uppgiftsbeskrivningen tillsammans innan ni börjar.
- 
+Öppna terminalen och skriv in följande:
+- cd server
+- npm install
+- npm run dev
+- En ny terminal
+- cd ../client
+- npm install
+- npm run dev
+
+OBS: Det är viktigt att starta servern först och sedan klienten. Om du startar klienten innan servern, kommer du att se felmeddelanden i terminalen.
+
  **Krav för godkänt:**
 - [x] Användaren får börja med att välja ett eget visningsnamn när den besöker sidan.
 - [x] Det ska gå att skapa ett rum (och samtidigt gå med i rummet).
