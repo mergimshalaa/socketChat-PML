@@ -27,7 +27,7 @@ export function ChatRoom() {
       >
         <StyledHeader>
           <HeaderWrapper>
-            <h1>You are in room: {room}</h1>
+            <Header>You are in room: {room}</Header>
             <LeaveButton onClick={handleLeaveRoom}>Leave room</LeaveButton>
           </HeaderWrapper>
         </StyledHeader>
@@ -102,4 +102,12 @@ const LeaveButton = styled.button`
     cursor: pointer;
     transform: scale(1.05);
   }
+`;
+
+const Header = styled.h1`
+  color: #000;
+  margin: 0.5rem 0;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2),
+    -2px -2px 4px rgba(255, 255, 255, 0.2);
 `;
