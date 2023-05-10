@@ -15,6 +15,7 @@ export function MessageInput() {
     e.preventDefault();
     sendMessage(message);
     setMessage("");
+    stopType(room || '')
   };
 
   const handleMessageChange = (e: any) => {
