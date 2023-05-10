@@ -13,34 +13,36 @@ export function MessageInput() {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    sendMessage(message);
-    setMessage("");
-    stopType(room || '')
+    if (message.trim()) {
+      sendMessage(message);
+      setMessage("");
+      stopType(room || '')
+    }
   };
 
-  const handleMessageChange = (e: any) => {
-    if (e.target.value) {
+  const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim();
+    if (value) {
       startType(room || "");
-    } else if (e.target.value === "") {
+    } else {
       stopType(room || "");
     }
-    setMessage(e.target.value);
+    setMessage(value);
   };
+
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          name="name"
-          placeholder="Message..."
-          value={message}
-          onChange={handleMessageChange}
-        />
-        <Button type="submit">
-          <FontAwesomeIcon icon={faPaperPlane} />
-        </Button>
-      </form>
-    </>
+    <form onSubmit={handleSubmit}>
+      <Input
+        type="text"
+        name="name"
+        placeholder="Message..."
+        value={message}
+        onChange={handleMessageChange}
+      />
+      <Button type="submit" disabled={!message.trim()}>
+        <FontAwesomeIcon icon={faPaperPlane} />
+      </Button>
+    </form>
   );
 }
 
