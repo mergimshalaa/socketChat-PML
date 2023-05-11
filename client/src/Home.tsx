@@ -2,11 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useSocket } from "./context/SocketContext";
+import { useConntectedContext } from "./context/UserContext";
 
 const Home = () => {
   const [room, setRoom] = useState("");
   const { joinRoom } = useSocket();
   const { setUsername } = useSocket();
+  const { addUser } = useConntectedContext();
 
   const navigate = useNavigate();
 

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { MessageInput } from "../components/MessageInput";
 import { useSocket } from "../context/SocketContext";
 import { useEffect, useRef } from "react";
+import { UserList } from "./UserList";
+import { RoomList } from "./RoomList";
 
 export function ChatRoom() {
   const { room, messages, leaveRoom, usersTyping, setRoomList, roomList } =
@@ -41,6 +43,10 @@ export function ChatRoom() {
             <LeaveButton onClick={handleLeaveRoom}>Leave room</LeaveButton>
           </HeaderWrapper>
         </StyledHeader>
+        <StyledAside>
+          <UserList></UserList>
+          <RoomList></RoomList>
+        </StyledAside>
         <StyledMain>
           <ul style={{ height: "25rem", overflow: "scroll" }}>
             {messages.map((message, i) => (
@@ -59,6 +65,11 @@ export function ChatRoom() {
     </>
   );
 }
+
+
+const StyledAside = styled.aside`
+  margin: 0 1rem;
+`;
 
 const MessageWrapper = styled.div`
   margin: 0 1rem;

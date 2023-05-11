@@ -4,10 +4,14 @@ import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 export function RoomList() {
-  const { roomList, leaveRoom, joinRoom } = useSocket();
+  const { roomList, leaveRoom, joinRoom, username } = useSocket();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   function handleJoinRoom(roomName: string) {
+    if (!username){
+      return "Not allowed";
+    }
+    
     leaveRoom();
     joinRoom(roomName);
   }

@@ -1,14 +1,15 @@
 import styled from "styled-components";
-import { useSocket } from "../context/SocketContext";
 import { useConntectedContext } from "../context/UserContext";
+import { useSocket } from "../context/SocketContext";
 
-export function RoomList() {
-  const { leaveRoom, joinRoom } = useSocket();
+export function UserList() {
   const { connectedUsers } = useConntectedContext();
+  const { joinDM } = useSocket()
 
-  function handleJoinDirectMessages(roomName: string) {
-    leaveRoom();
-    joinRoom(roomName);
+  function handleJoinDirectMessages(user: User) {
+    const personBeingContacted = user.name
+
+    joinDM(personBeingContacted)
   }
 
   type User = {
@@ -19,14 +20,14 @@ export function RoomList() {
   return (
     <Wrapper>
       <RoomTitle>Active users:</RoomTitle>
-      <UserList>
+      <UList>
         <UserListTitle>Connected users:</UserListTitle>
         {connectedUsers.map((user: User) => (
-          <ListedUser onClick={() => handleJoinDirectMessages(user.name)} key={user.id}>
+          <ListedUser onClick={() => handleJoinDirectMessages(user)} key={user.id}>
             {user.name}
           </ListedUser>
         ))}
-      </UserList>
+      </UList>
     </Wrapper>
   );
 }
@@ -42,7 +43,7 @@ const RoomTitle = styled.h3`
   margin-left: 1rem;
 `;
 
-const UserList = styled.div`
+const UList = styled.div`
   margin-top: 1rem;
 `;
 

@@ -27,6 +27,7 @@ interface ContextValues {
   >;
   username: string;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
+  joinDM: (personBeingContacted: string) => void;
 }
 
 const socket: Socket<
@@ -34,19 +35,7 @@ const socket: Socket<
   ClientToServerEvents
 > = io();
 
-const SocketContext = createContext<ContextValues>({
-  joinRoom: () => {},
-  leaveRoom: () => {},
-  sendMessage: () => {},
-  messages: [],
-  roomList: [],
-  startType: () => {},
-  stopType: () => {},
-  usersTyping: [],
-  setRoomList: () => {},
-  username: "",
-  setUsername: () => {},
-});
+const SocketContext = createContext<ContextValues>(null as any);
 
 export const useSocket = () => useContext(SocketContext);
 
@@ -69,6 +58,10 @@ export function SocketProvider({
       setRoom(room);
       console.log(`User ${username} joined room: ${room}`);
     });
+  };
+
+  const joinDM = (personBeingContacted: string) => {
+    socket.emit("joinDM", personBeingContacted, username, );
   };
 
   const leaveRoom = () => {
@@ -133,7 +126,13 @@ export function SocketProvider({
     socket.on("rooms", rooms);
     socket.on("startType", onStartType);
     socket.on("stopType", onStopType);
-
+    // listen for the joinDMWithPerson event and automatically join the room
+    socket.on('joinDMWithPerson', (personBeingContacted: string) => {
+      const roomName = `${personBeingContacted}:${username}`;
+      socket.emit('joinRoom', roomName, personBeingContacted);
+      // emit an event to notify the participants in the room that a new user has joined
+    });    
+    
     return () => {
       socket.off("connect", connect);
       socket.off("disconnect", disconnect);
@@ -157,6 +156,7 @@ export function SocketProvider({
     setRoomList,
     username,
     setUsername,
+    joinDM,
   };
 
   return (
