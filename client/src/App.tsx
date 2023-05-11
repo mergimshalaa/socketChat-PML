@@ -6,7 +6,7 @@ import { RoomList } from "./components/RoomList";
 function App() {
   return (
     <>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", position: 'relative' }}>
         <RoomList />
         <Routes>
           <Route path="/" element={<Home />} />
