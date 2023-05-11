@@ -21,6 +21,7 @@ io.on("connection", (socket) => {
   });
   
   socket.on("join", (room: string, name: string, ack) => {
+    // Kolla så att användaren inte försöker joina ett DM-rum som inte är deras
     socket.data.name = name;
     socket.join(room);
     ack();
@@ -46,27 +47,27 @@ io.on("connection", (socket) => {
 
   // server.js
 
-socket.on('joinDM', (personBeingContacted: string, username: string) => {
-  const roomName = `${personBeingContacted}:${username}`;
-  socket.join(roomName);
-  // emit an event to notify the participants in the room that a new user has joined
-  io.to(roomName).emit('userJoined', username);
+  socket.on('joinDM', (personBeingContacted: string, username: string) => {
+    const roomName = `DM:${personBeingContacted}:${socket.data.name}`;
+    socket.join(roomName);
+    // emit an event to notify the participants in the room that a new user has joined
+    io.to(roomName).emit('userJoined', username);
 
-  // check if the personBeingContacted is already in the room
-  const isPersonBeingContactedInRoom = io.sockets.adapter.rooms.get(roomName)?.has(personBeingContacted);
+    // check if the personBeingContacted is already in the room
+    const isPersonBeingContactedInRoom = io.sockets.adapter.rooms.get(roomName)?.has(personBeingContacted);
 
-  // if the personBeingContacted is not already in the room, add them to the room
-  if (!isPersonBeingContactedInRoom) {
-    // emit a special event to the personBeingContacted's socket to automatically join the room
-    io.to(personBeingContacted).emit('joinDMWithPerson', username);
-  }
-});
+    // if the personBeingContacted is not already in the room, add them to the room
+    if (!isPersonBeingContactedInRoom) {
+      // emit a special event to the personBeingContacted's socket to automatically join the room
+      io.to(personBeingContacted).emit('joinDMWithPerson', username);
+    }
+  });
 
-socket.on('joinRoom', (roomName, personBeingContacted) => {
-  const username = personBeingContacted;
-  socket.join(roomName);
-  socket.to(roomName).emit('userJoined', username);
-});
+  socket.on('joinRoom', (roomName, personBeingContacted) => {
+    const username = personBeingContacted;
+    socket.join(roomName);
+    socket.to(roomName).emit('userJoined', username);
+  });
 });
 
 
