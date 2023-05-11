@@ -34,19 +34,7 @@ const socket: Socket<
   ClientToServerEvents
 > = io();
 
-const SocketContext = createContext<ContextValues>({
-  joinRoom: () => {},
-  leaveRoom: () => {},
-  sendMessage: () => {},
-  messages: [],
-  roomList: [],
-  startType: () => {},
-  stopType: () => {},
-  usersTyping: [],
-  setRoomList: () => {},
-  username: "",
-  setUsername: () => {},
-});
+const SocketContext = createContext<ContextValues>(null as any);
 
 export const useSocket = () => useContext(SocketContext);
 
