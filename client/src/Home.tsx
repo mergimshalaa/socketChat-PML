@@ -69,9 +69,12 @@ const Input = styled.input`
   background: none;
   color: #555;
   box-shadow: inset 8px 8px 8px #cbced1,
-              inset -8px -8px 8px #ffffff;
+    inset -8px -8px 8px #ffffff;
   border: none;
   outline: none;
+  @media (max-width: 480px) {
+    width: 100%
+  }
 `;
 
 const Button = styled.button`
