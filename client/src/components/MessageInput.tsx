@@ -18,7 +18,7 @@ export function MessageInput() {
   };
 
   const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
+    const value = e.target.value;
     if (value) {
       startType(room || "");
     } else {
