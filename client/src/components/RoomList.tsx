@@ -10,7 +10,6 @@ export function RoomList() {
   function handleJoinRoom(roomName: string) {
     leaveRoom();
     joinRoom(roomName);
-    setIsSidebarOpen(false);
   }
 
   function handleSidebarToggle() {
