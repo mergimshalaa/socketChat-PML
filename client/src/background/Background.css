@@ -34,3 +34,9 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+@media (max-width: 480px) {
+  .background-container {
+    padding: 10px;
+  }
+}
