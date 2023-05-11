@@ -1,12 +1,10 @@
 import styled from "styled-components";
-import { SocketProvider, useSocket } from "../context/SocketContext";
-import { ConnectedUsersProvider, ConnectedUsersContext } from "../context/UserContext";
-import { useContext } from "react";
+import { useSocket } from "../context/SocketContext";
+import { useConntectedContext } from "../context/UserContext";
 
 export function RoomList() {
   const { leaveRoom, joinRoom } = useSocket();
-  const connectedUsersContext = useContext<ConnectedUsersContext>(ConnectedUsersContext);
-  const { connectedUsers } = connectedUsersContext;
+  const { connectedUsers } = useConntectedContext();
 
   function handleJoinDirectMessages(roomName: string) {
     leaveRoom();

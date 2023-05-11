@@ -54,7 +54,6 @@ export function SocketProvider({ children }: PropsWithChildren) {
   const [usersTyping, setUsersTyping] = useState<string[]>([]);
   const [username, setUsername] = useState("");
 
-
   const joinRoom = (room: string) => {
     socket.emit("join", room, username, () => {
       setCurrentRoom(room);

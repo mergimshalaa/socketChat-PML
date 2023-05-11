@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useContext, useState } from 'react';
 
 type User = {
   id: string;
@@ -10,6 +10,9 @@ type ConnectedUsersContextType = {
   addUser: (user: User) => void;
   removeUser: (userId: string) => void;
 };
+
+export const useConntectedContext = () => useContext(ConnectedUsersContext);
+
 
 export const ConnectedUsersContext = React.createContext<ConnectedUsersContextType>({
   connectedUsers: [],
