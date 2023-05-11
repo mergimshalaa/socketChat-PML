@@ -29,6 +29,7 @@ export function MessageInput() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <div style={{ width: '100%', display: 'flex', padding: '1rem' }}>
       <Input
         type="text"
         name="name"
@@ -39,15 +40,18 @@ export function MessageInput() {
       <Button type="submit" disabled={!message.trim()}>
         <FontAwesomeIcon icon={faPaperPlane} />
       </Button>
+      </div>
     </form>
   );
 }
 
 const Input = styled.input`
-  padding: 0.5rem 1rem;
+  padding: .5rem 1rem;
   border-radius: 0.3rem;
   border: none;
-  margin: 0.5rem;
+  flex: 1;
+  border: none;
+  outline: none;
 `;
 
 const Button = styled.button`
