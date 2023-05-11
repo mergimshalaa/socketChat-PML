@@ -5,14 +5,8 @@ import { useSocket } from "../context/SocketContext";
 import { useEffect, useRef } from "react";
 
 export function ChatRoom() {
-  const {
-    room,
-    messages,
-    leaveRoom,
-    usersTyping,
-    setRoomList,
-    roomList,
-  } = useSocket();
+  const { room, messages, leaveRoom, usersTyping, setRoomList, roomList } =
+    useSocket();
 
   const navigate = useNavigate();
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
@@ -105,7 +99,6 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-
 
 const LeaveButton = styled.button`
   padding: 0.5rem;
