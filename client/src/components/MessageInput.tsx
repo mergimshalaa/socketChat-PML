@@ -8,51 +8,56 @@ export function MessageInput() {
   const [message, setMessage] = useState("");
   const { sendMessage, startType, stopType, room } = useSocket();
 
-  const handleSubmit = (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    sendMessage(message);
-    setMessage("");
+    if (message.trim()) {
+      sendMessage(message);
+      setMessage("");
+      stopType(room || "");
+    }
   };
 
-  const handleMessageChange = (e: any) => {
-    if (e.target.value) {
-      startType(room || '')
-    } else if (e.target.value === ''){
-      stopType(room || '')
+  const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value) {
+      startType(room || "");
+    } else {
+      stopType(room || "");
     }
-    setMessage(e.target.value)
-  }
+    setMessage(value);
+  };
+
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          name="name"
-          placeholder="Message..."
-          value={message}
-          onChange={handleMessageChange}
-        />
-        <Button type="submit">
-          <FontAwesomeIcon icon={faPaperPlane} />
-        </Button>
-      </form>
-    </>
+    <form onSubmit={handleSubmit}>
+      <div style={{ width: '100%', display: 'flex', padding: '1rem' }}>
+      <Input
+        type="text"
+        name="name"
+        placeholder="Message..."
+        value={message}
+        onChange={handleMessageChange}
+      />
+      <Button type="submit" disabled={!message.trim()}>
+        <FontAwesomeIcon icon={faPaperPlane} />
+      </Button>
+      </div>
+    </form>
   );
 }
 
 const Input = styled.input`
-  padding: 0.5rem 1rem;
+  padding: .5rem 1rem;
   border-radius: 0.3rem;
   border: none;
-  margin: 0.5rem;
-  `;
-  
-  const Button = styled.button`
+  flex: 1;
+  border: none;
+  outline: none;
+`;
+
+const Button = styled.button`
   border: none;
   padding: 0.5rem;
   border-radius: 0.3rem;
-  background-color: #2192FF;
-  color: #FFF;
+  background-color: #2192ff;
+  color: #fff;
 `;
