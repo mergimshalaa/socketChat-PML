@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { MessageInput } from "../components/MessageInput";
 import { useSocket } from "../context/SocketContext";
+import { useEffect, useRef } from "react";
 
 export function ChatRoom() {
   const {
@@ -14,6 +15,15 @@ export function ChatRoom() {
   } = useSocket();
 
   const navigate = useNavigate();
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToBottom = () => {
+    if (messagesEndRef.current !== null) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  useEffect(scrollToBottom, [messages]);
 
   const handleLeaveRoom = () => {
     if (!room) return;
@@ -45,6 +55,7 @@ export function ChatRoom() {
                 <Message> {message.message}</Message>
               </MessageWrapper>
             ))}
+            <div ref={messagesEndRef} />
           </ul>
 
           {usersTyping.length > 0 && `${usersTyping} is typing...`}
@@ -94,6 +105,7 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+
 
 const LeaveButton = styled.button`
   padding: 0.5rem;
