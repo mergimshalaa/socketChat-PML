@@ -29,7 +29,7 @@ OBS: Det är viktigt att starta servern först och sedan klienten. Om du startar
 rummet.
 - [x] Git & GitHub har använts.
 - [x] Projektmappen innehåller en README.md fil (läs ovan för mer info).
-- [ ] Uppgiften lämnas in i tid!
+- [x] Uppgiften lämnas in i tid!
 
 **Krav för väl godkänt:**
 - [ ] Alla punkter för godkänt är uppfyllda.
